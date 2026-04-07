@@ -2,7 +2,39 @@ export default defineNuxtConfig({
   future: {
     compatibilityVersion: 4,
   },
-  ssr: false,
+  ssr: true,
+  runtimeConfig: {
+    strapiToken: '',
+    public: {
+      strapiUrl: 'http://localhost:1338/api',
+    },
+  },
+  nitro: {
+    prerender: {
+      crawlLinks: true, 
+      routes: ['/', '/about', '/contact', '/articles'],
+    },
+  },
+
+  hooks: {
+    async 'nitro:config'(nitroConfig) {
+      try {
+        const routes = await fetchStrapiRoutes()
+        console.log('Prerendering routes:', routes)
+
+        nitroConfig.prerender ??= {}
+
+        // routes potrebbe essere undefined: inizializzalo come array
+        if (!Array.isArray(nitroConfig.prerender.routes)) {
+          nitroConfig.prerender.routes = []
+        }
+
+        nitroConfig.prerender.routes.push(...routes)
+      } catch (error) {
+        console.error('Error fetching routes for prerendering:', error)
+      }
+    },
+  },
   app: {
     pageTransition: { name: 'page', mode: 'out-in' },
   },
@@ -31,3 +63,15 @@ export default defineNuxtConfig({
     }
   }
 })
+
+async function fetchStrapiRoutes() {
+  const res = await fetch(`${process.env.STRAPI_URL}/articles?fields=slug`, {
+    headers: {
+      Authorization: `Bearer ${process.env.STRAPI_TOKEN}`,
+    },
+  })
+  const { data } = await res.json()
+  console.log('Fetched routes from Strapi:', data)
+  return data.map((item: any) => `/articles/${item.slug}`)
+
+}
