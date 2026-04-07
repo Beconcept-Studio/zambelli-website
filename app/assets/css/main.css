@@ -1,9 +1,0 @@
-/* assets/css/main.css */
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-/* Applica globalmente font-sans */
-body {
-  @apply font-sans;
-}

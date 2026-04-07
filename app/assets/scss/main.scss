@@ -1,18 +1,92 @@
-.fade-enter-active,
-.fade-leave-active {
-  transition: all 0.4s;
+//COMMON CONTAINERS
+html{
+  @apply overflow-x-clip font-roboto;
 }
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
-  filter: blur(1rem);
+.page-enter-active,
+.page-leave-active {
+  transition: all 0.3s ease;
 }
 
-.div--container{
-    @apply w-full max-w-[1600px] mx-auto px-4 lg:px-10;
+.page-enter-from,
+.page-leave-to {
+  opacity: 0;
+  transform: translateY(10px);
 }
-body{
-    h1{
-        @apply text-blue-900;
-    }
+.div--container-small{
+  @apply w-full max-w-[1080px] mx-auto xl:px-14 md:px-8 px-6;
+}
+.div--container{
+  @apply w-full xl:px-14 md:px-8 px-6 max-w-[1800px] mx-auto;
+}
+.div--container-full{
+  @apply w-full px-0;
+}
+section{
+  @apply overflow-x-clip;
+}
+
+//SPACINGS
+.space-top{
+  @apply xl:pt-[110px] pt-12;
+}
+.margin-top{
+  @apply xl:mt-[110px] mt-12;
+}
+.space-top-half{
+  @apply 2xl:pt-20 xl:pt-20 pt-12;
+}
+.space-bottom{
+  @apply xl:pb-[110px] pb-12;
+}
+.space-bottom-half{
+  @apply 2xl:pb-20 xl:pb-20 pb-12;
+}
+.space-top-double{
+  @apply xl:pt-56 pt-32;
+}
+.space-bottom-double{
+  @apply xl:pb-56 pb-32;
+}
+
+//VERTICAL SPACING
+.verticalspace-small > section:not(:first-child) , .verticalspace-small > div:not(:first-child){
+  @apply xl:pt-16 pt-10;
+}
+.verticalspace > section:not(:first-child) , .verticalspace > div:not(:first-child){
+  @apply xl:pt-[110px] pt-12;
+}
+.verticalspace-double > section:not(:first-child) , .verticalspace-double > div:not(:first-child){
+  @apply xl:pt-40 pt-20;
+}
+
+//GRIDS
+.common--grid{
+  @apply grid grid-cols-12 md:gap-6 gap-y-8;
+}
+.check--mobile--order{
+  @apply flex flex-col-reverse md:grid;
+}
+.h1 {
+  @apply font-roboto font-normal lg:text-[80px] text-[64px] leading-[110%];
+}
+.h2 {
+  @apply font-roboto font-normal lg:text-[64px] text-[48px] leading-[110%];
+}
+.h3 {
+  @apply font-roboto font-normal lg:text-[56px] text-[40px] leading-[115%];
+}
+.h3small {
+  @apply font-roboto font-normal lg:text-[48px] text-[32px] leading-[115%];
+}
+.h4 {
+  @apply font-roboto font-normal lg:text-[32px] text-[24px] leading-[130%];
+}
+.h5 {
+  @apply font-roboto font-medium lg:text-[20px] text-[18px] leading-[150%];
+}
+.h6 {
+  @apply font-roboto font-medium text-sm uppercase;
+}
+p + p , ul + p , p + ul, ol + p , p + ol{
+  @apply pt-4;
 }

@@ -1,15 +1,14 @@
-module.exports = {
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: [
+    './app/**/*.{vue,js,ts}',
+  ],
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Space Grotesk', 'sans-serif']
-      }
-    }
+        roboto: ['Roboto', 'sans-serif'],
+      },
+    },
   },
-  content: [
-    './components/**/*.{vue,js}',
-    './layouts/**/*.vue',
-    './pages/**/*.vue',
-    './app.vue'
-  ]
+  plugins: [],
 }

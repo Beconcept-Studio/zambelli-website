@@ -1,11 +1,4 @@
 <template>
-    <footer id="footer-desktop" class="hidden bg-black text-white lg:flex w-full items-center">
-        <div class="div--container relative py-5">
-            <div class="grid grid-cols-12 gap-5">
-                <div class="col-span-12 self-center justify-center flex items-center">
-                    <AppNav />
-                </div>
-            </div>
-        </div>
+    <footer id="footer-desktop" class="bg-black text-white flex w-full items-center py-10">
     </footer>
 </template>

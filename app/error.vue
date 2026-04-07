@@ -1,11 +1,7 @@
 <script setup lang="ts">
 import type { NuxtError } from '#app'
-// Ricevo i dettagli dell'errore da Nuxt
 const props = defineProps<{error: NuxtError}>()
-// Posso stampare l'errore in console per capire cosa è successo
-console.error("Si è rotto qualcosa!", props.error)
 </script>
-
 <template class="h-screen w-screen overflow-hidden">
     <div class="h-screen w-screen p-4 flex flex-col gap-4 items-center justify-center">
         <div class="font-bold text-[40vw] text-center leading-[.8]">{{ error.status }}</div>
