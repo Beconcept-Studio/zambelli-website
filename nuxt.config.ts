@@ -11,25 +11,26 @@ export default defineNuxtConfig({
   },
   nitro: {
     prerender: {
-      crawlLinks: true, 
-      routes: ['/', '/about', '/contact', '/articles'],
+      crawlLinks: true,
+      routes: ['/', '/about', '/contact', '/articles', '/api/articles'],
     },
   },
 
   hooks: {
     async 'nitro:config'(nitroConfig) {
       try {
-        const routes = await fetchStrapiRoutes()
-        console.log('Prerendering routes:', routes)
+        const slugs = await fetchPublishedSlugs()
+        console.log('Prerendering routes:', slugs)
 
         nitroConfig.prerender ??= {}
-
-        // routes potrebbe essere undefined: inizializzalo come array
         if (!Array.isArray(nitroConfig.prerender.routes)) {
           nitroConfig.prerender.routes = []
         }
 
-        nitroConfig.prerender.routes.push(...routes)
+        for (const slug of slugs) {
+          nitroConfig.prerender.routes.push(`/articles/${slug}`)
+          nitroConfig.prerender.routes.push(`/api/articles/${slug}`)
+        }
       } catch (error) {
         console.error('Error fetching routes for prerendering:', error)
       }
@@ -64,14 +65,13 @@ export default defineNuxtConfig({
   }
 })
 
-async function fetchStrapiRoutes() {
-  const res = await fetch(`${process.env.STRAPI_URL}/articles?fields=slug`, {
+async function fetchPublishedSlugs(): Promise<string[]> {
+  const base = process.env.STRAPI_URL ?? 'http://localhost:1338/api'
+  const res = await fetch(`${base}/articles?fields=slug&filters[publishedAt][$notNull]=true`, {
     headers: {
       Authorization: `Bearer ${process.env.STRAPI_TOKEN}`,
     },
   })
   const { data } = await res.json()
-  console.log('Fetched routes from Strapi:', data)
-  return data.map((item: any) => `/articles/${item.slug}`)
-
+  return data.map((item: any) => item.slug ?? item.attributes?.slug)
 }

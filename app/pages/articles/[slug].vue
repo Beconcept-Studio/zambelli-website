@@ -1,30 +1,10 @@
 <script setup lang="ts">
 const route = useRoute()
-const config = useRuntimeConfig()
 
-const { data: articleData, error } = await useFetch(
-  `${config.public.strapiUrl}/articles`,
-  {
-    query: {
-      'filters[slug][$eq]': route.params.slug,
-      populate: '*',
-    },
-    headers: {
-      Authorization: `Bearer ${config.strapiToken}`,
-    },
-    key: `article-${route.params.slug}`,
-  }
+const { data: article, error } = await useFetch(
+  `/api/articles/${route.params.slug}`,
+  { key: `article-${route.params.slug}` }
 )
-
-// Spacchetta la struttura Strapi
-const article = computed(() => {
-  const list = articleData.value?.data
-  if (!list || list.length === 0) return null
-
-  const raw = list[0]
-  // gestisce sia v4 che v5
-  return raw.attributes ?? raw ?? null
-})
 </script>
 <template>
   <main class="verticalspace space-bottom">

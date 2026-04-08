@@ -1,26 +1,7 @@
 <script setup lang="ts">
-const config = useRuntimeConfig()
-
-const { data: articlesData } = await useFetch(
-  `${config.public.strapiUrl}/articles`,
-  {
-    query: {
-      'filters[publishedAt][$notNull]': true,
-      populate: '*',
-      'sort[0]': 'publishedAt:desc',
-      'pagination[limit]': 3,
-    },
-    headers: {
-      Authorization: `Bearer ${config.strapiToken}`,
-    },
-    key: 'articles-list',
-  }
-)
-
-const articles = computed(() => {
-  const list = articlesData.value?.data
-  if (!list) return []
-  return list.map((raw: any) => raw.attributes ?? raw)
+const { data: articles } = await useFetch('/api/articles', {
+  query: { limit: 3 },
+  key: 'articles-list',
 })
 </script>
 <template>
@@ -34,7 +15,7 @@ const articles = computed(() => {
         </div>
         <div class="div--container">
             <div class="common--grid">
-                <div class="lg:col-span-4 col-span-12" v-for="article in articles" :key="article.slug">
+                <div class="lg:col-span-4 col-span-12" v-for="article in (articles ?? [])" :key="article.slug">
                     <NuxtLink :to="`/articles/${article.slug}`" class="block border border-solid border-gray-200 rounded overflow-hidden h-full">
                         <div class="aspect-[2/1] bg-gray-300 w-full"></div>
                         <div class="space-y-3 p-3">
