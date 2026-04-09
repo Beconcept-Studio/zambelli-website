@@ -129,8 +129,5 @@ p + p , ul + p , p + ul, ol + p , p + ol{
     &.size-six{
       @apply w-[15vw] h-auto;
     }
-    &.size-seven{
-      @apply w-[12vw] h-auto;
-    }
   }
 }

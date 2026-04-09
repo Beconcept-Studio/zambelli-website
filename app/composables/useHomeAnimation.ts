@@ -22,7 +22,6 @@ export function useGalleryAnimation({
     'size-four',
     'size-five',
     'size-six',
-    'size-seven'
   ]
 
   function newImage() {

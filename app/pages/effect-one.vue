@@ -15,7 +15,6 @@
             <img src="/effect-one/4.jpg" alt="">
             <img src="/effect-one/5.jpg" alt="">
             <img src="/effect-one/6.jpg" alt="">
-            <img src="/effect-one/7.jpg" alt="">
         </div>
     </section>
 </template>
