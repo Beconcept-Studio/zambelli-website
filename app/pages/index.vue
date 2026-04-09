@@ -1,34 +1,23 @@
+<script setup lang="ts">
+    import { useGalleryAnimation } from '@/composables/useHomeAnimation'
+    useGalleryAnimation({
+        rootSelector: '.zambelli-gallery-home',
+        triggerDelta:   200
+    })
+</script>
+
 <template>
-  <main class="verticalspace space-bottom">
-    <section id="hero" class="">
-      <div class="w-full bg-gray-200 min-h-[640px] flex items-center justify-center">
-        <div class="div--container space-y-3">
-          <div class="max-w-[820px] space-y-3">
-            <h1 class="h3">Welcome to Zambelli</h1>
-            <div class="h5">Sed gravida dui velit, et dictum erat convallis tincidunt.
-              Etiam dictum vel ipsum ac ultrices. Morbi eu mollis eros, nec ultricies felis. 
-            </div>
-          </div>
+    <section class="overflow-hidden h-[100dvh] zambelli-gallery-home">
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-60">
+          Scroll to discover
         </div>
-      </div>
-    </section>
-    <section class="">
-      <div class="div--container">
-        <div class="space-y-4">
-          <h1 class="h4">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h1>
-          <div>
-             Sed gravida dui velit, et dictum erat convallis tincidunt.
-             Etiam dictum vel ipsum ac ultrices. Morbi eu mollis eros, nec ultricies felis. 
-             Nam finibus rutrum ultricies. Vestibulum a nisl tincidunt ligula viverra accumsan eu vitae sapien. 
-             Donec ac dignissim arcu. Curabitur dolor urna, convallis sed lectus tincidunt, congue ornare lacus. 
-             Cras augue ligula, cursus a mi ut, tempor molestie magna. 
-             Mauris tincidunt, sapien et rutrum sollicitudin, lacus purus suscipit quam, sed maximus erat metus in odio. 
-             Sed non nibh sed lacus tincidunt vestibulum. Mauris laoreet vel lorem vel vulputate. 
-             Vestibulum dapibus ullamcorper lorem non hendrerit.
-          </div>
+        <div class="medias">
+            <img src="/effect-one/1.jpg" alt="">
+            <img src="/effect-one/2.jpg" alt="">
+            <img src="/effect-one/3.jpg" alt="">
+            <img src="/effect-one/4.jpg" alt="">
+            <img src="/effect-one/5.jpg" alt="">
+            <img src="/effect-one/6.jpg" alt="">
         </div>
-      </div>
     </section>
-    <PostList></PostList>
-  </main>
 </template>

@@ -11,5 +11,6 @@
         <NuxtLink class="px-3 py-1 h-9 rounded-full flex items-center justify-center text-center leading-none transition-all duration-300" exactActiveClass="bg-white" to="/blog">Blog</NuxtLink>
         <NuxtLink class="px-3 py-1 h-9 rounded-full flex items-center justify-center text-center leading-none transition-all duration-300" exactActiveClass="bg-white" to="/single-post">Single Post</NuxtLink>
         <NuxtLink class="px-3 py-1 h-9 rounded-full flex items-center justify-center text-center leading-none transition-all duration-300" exactActiveClass="bg-white" to="/effect-one">Anim. #1</NuxtLink>
+        <NuxtLink class="px-3 py-1 h-9 rounded-full flex items-center justify-center text-center leading-none transition-all duration-300" exactActiveClass="bg-white" to="/contacts">Contacts</NuxtLink>
     </nav>
 </template>

@@ -117,10 +117,10 @@ section{
   @apply 2xl:pb-20 xl:pb-20 pb-12;
 }
 .space-top-double{
-  @apply xl:pt-56 pt-32;
+  @apply xl:pt-[180px] pt-[80px];
 }
 .space-bottom-double{
-  @apply xl:pb-56 pb-32;
+  @apply xl:pb-[180px] pb-[80px];
 }
 
 //VERTICAL SPACING
