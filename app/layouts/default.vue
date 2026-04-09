@@ -1,5 +1,6 @@
 <template>
-  <div class="demo">
+  <div>
+    <AppLogo />
     <AppHeader />
     <NuxtPage />
   </div>

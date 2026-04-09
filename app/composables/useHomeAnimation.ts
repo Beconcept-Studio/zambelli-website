@@ -7,7 +7,7 @@ interface UseGalleryAnimationOptions {
 
 export function useGalleryAnimation({
   rootSelector,
-  triggerDelta = 600
+  triggerDelta = 500
 }: UseGalleryAnimationOptions) {
   const currentIndex = ref(0)
   let incr = 0
@@ -48,7 +48,7 @@ export function useGalleryAnimation({
       ease: 'power4.out',
       duration: 0.15
     })
-    .to(image, {
+    tl.to(image, {
       scaleX: 0.96,
       scaleY: 0.96,
       ease: 'power4.in',
