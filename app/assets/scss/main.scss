@@ -90,3 +90,33 @@ section{
 p + p , ul + p , p + ul, ol + p , p + ol{
   @apply pt-4;
 }
+
+//HOMEPAGE
+.zambelli-gallery-home{
+  .medias{
+    img{
+      @apply w-[1px] h-[1px] absolute top-0 left-0 invisible pointer-events-none;
+      &.size-one{
+        @apply w-[20vw] h-auto;
+      }
+      &.size-two{
+        @apply w-[25vw] h-auto;
+      }
+      &.size-three{
+        @apply w-[30vw] h-auto;
+      }
+      &.size-four{
+        @apply w-[35vw] h-auto;
+      }
+      &.size-five{
+        @apply w-[40vw] h-auto;
+      }
+      &.size-six{
+        @apply w-[45vw] h-auto;
+      }
+      &.size-seven{
+        @apply w-[50vw] h-auto;
+      }
+    }
+  }
+}
