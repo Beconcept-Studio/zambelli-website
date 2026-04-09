@@ -2,14 +2,14 @@
     import HomeIcon from '@/assets/svg/home-icon.svg'
 </script>
 <template>
-    <nav>
-        <ul class="flex items-center gap-2 w-fit uppercase font-medium">
-            <li class="flex items-center justify-center"><NuxtLink class="aspect-square bg-red-100 p-3 rounded-full flex items-center justify-center text-black" exactActiveClass="" to="/">
-                <HomeIcon class="w-3 h-3" />
-            </NuxtLink></li>
-            <li class="flex items-center justify-center"><NuxtLink class="px-4 py-1 rounded-full" exactActiveClass="bg-black text-white" to="/blog">Blog</NuxtLink></li>
-            <li class="flex items-center justify-center"><NuxtLink class="px-4 py-1 rounded-full" exactActiveClass="bg-black text-white" to="/single-post">Single Post</NuxtLink></li>
-            <li class="flex items-center justify-center"><NuxtLink class="px-4 py-1 rounded-full" exactActiveClass="bg-black text-white" to="/effect-one">Anim. #1</NuxtLink></li>
-        </ul>
+
+
+    <nav class="flex items-center gap-1 w-fit font-normal text-[#646464]">
+        <NuxtLink class="aspect-square p-3 rounded-full flex items-center justify-center transition-all duration-300" exactActiveClass="bg-white" to="/">
+            <HomeIcon class="w-3 h-3" />
+        </NuxtLink>
+        <NuxtLink class="px-3 py-1 h-9 rounded-full flex items-center justify-center text-center leading-none transition-all duration-300" exactActiveClass="bg-white" to="/blog">Blog</NuxtLink>
+        <NuxtLink class="px-3 py-1 h-9 rounded-full flex items-center justify-center text-center leading-none transition-all duration-300" exactActiveClass="bg-white" to="/single-post">Single Post</NuxtLink>
+        <NuxtLink class="px-3 py-1 h-9 rounded-full flex items-center justify-center text-center leading-none transition-all duration-300" exactActiveClass="bg-white" to="/effect-one">Anim. #1</NuxtLink>
     </nav>
 </template>
