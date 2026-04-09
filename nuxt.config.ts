@@ -4,9 +4,9 @@ export default defineNuxtConfig({
   },
   ssr: true,
   runtimeConfig: {
-    strapiToken: '',
+    strapiToken: process.env.STRAPI_TOKEN,
     public: {
-      strapiUrl: 'http://localhost:1338/api',
+      strapiUrl: process.env.STRAPI_URL || 'http://localhost:1338/api',
     },
   },
   nitro: {
@@ -14,8 +14,8 @@ export default defineNuxtConfig({
       crawlLinks: true, 
       routes: ['/', '/about', '/contact', '/articles'],
     },
+    preset: 'static' // oppure puoi ometterlo, viene rilevato da `nuxt generate`
   },
-
   hooks: {
     async 'nitro:config'(nitroConfig) {
       try {
