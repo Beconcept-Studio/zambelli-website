@@ -1,16 +1,20 @@
 <script setup lang="ts">
-    import { onMounted } from 'vue'
+    import { onMounted, onUnmounted } from 'vue'
     import gsap from 'gsap'
-    
+
+    let currentIndex = 0
     let incr = 0
-    let handleWheel
+    let handleWheel: (e: WheelEvent) => void
+
     onMounted(() => {
+        // Blocca scroll della pagina
+        document.documentElement.classList.add('overflow-hidden', 'h-[100dvh]')
+        document.body.classList.add('overflow-hidden', 'h-[100dvh]')
+
         const root = document.querySelector('.zambelli-gallery-home')
-        
         if (!root) return
-        
-        const imagesAll = []
-        
+
+        // Preload immagini e assegna classi casuali agli elementi esistenti
         const classes = [
             'size-one',
             'size-two',
@@ -20,32 +24,86 @@
             'size-six',
             'size-seven'
         ]
-        
-        const elements = root.querySelectorAll('.medias img')
-        elements.forEach((image, index) => {
-            imagesAll.push(image.getAttribute('src')  || '')
-            const randomClass = classes[Math.floor(Math.random() * classes.length)]!
-            image.classList.add(randomClass)
+
+        const elements = root.querySelectorAll<HTMLImageElement>('.medias img')
+        const imagesAll: HTMLImageElement[] = []
+
+        elements.forEach(img => {
+            const src = img.getAttribute('src')
+            if (!src) return
+            const preloaded = new Image()
+            preloaded.src = src
+            imagesAll.push(preloaded)
+            const randomClass = classes[Math.floor(Math.random() * classes.length)]
+            img.classList.add(randomClass)
         })
 
-        handleWheel = (e) => {
+        // Funzione per creare e animare nuova immagine
+        function newImage() {
+            if (!imagesAll.length) return
+
+            const image = imagesAll[currentIndex].cloneNode(true) as HTMLImageElement
+            const randomClass = classes[Math.floor(Math.random() * classes.length)]
+            image.classList.add(randomClass)
+            root.appendChild(image)
+
+            // Timeline GSAP
+            const tl = gsap.timeline({
+            onComplete: () => root.removeChild(image)
+            })
+
+            tl.fromTo(image, {
+            xPercent: -50 + (Math.random() - 0.5) * 150,
+            yPercent: -50 + (Math.random() - 0.5) * 30,
+            rotation: (Math.random() - 0.5) * 20,
+            scaleX: 1.05,
+            scaleY: 1.2
+            }, {
+            scaleX: 1,
+            scaleY: 1,
+            ease: 'power4.out',
+            duration: 0.15
+            })
+            .to(image, {
+            scaleX: 0.96,
+            scaleY: 0.96,
+            ease: 'power4.in',
+            duration: 0.15,
+            delay: 2
+            })
+
+            // Aggiorna indice corrente
+            currentIndex = (currentIndex + 1) % imagesAll.length
+        }
+
+        // Scroll handler ottimizzato con requestAnimationFrame
+        let ticking = false
+        handleWheel = (e: WheelEvent) => {
             incr += Math.abs(e.deltaY)
-            if (incr > 600) {
-            console.log('TRIGGER 🔥')
-            // newImage()
-            incr = 0
+            if (!ticking) {
+            requestAnimationFrame(() => {
+                if (incr > 600) {
+                newImage()
+                incr = 0
+                }
+                ticking = false
+            })
+            ticking = true
             }
         }
+
         root.addEventListener('wheel', handleWheel, { passive: true })
+    })
 
-        
-        const randomIndex = Math.floor(Math.random() * classes.length),
-        image = document.createElement("img")
-        image.setAttribute('src', images[currentIndex])
-        image.classList.add(classes[randomIndex])
-        root.appendChild(image);
+    onUnmounted(() => {
+        document.documentElement.classList.remove('overflow-hidden', 'h-[100dvh]')
+        document.body.classList.remove('overflow-hidden', 'h-[100dvh]')
 
+        const root = document.querySelector('.zambelli-gallery-home')
+        if (root && handleWheel) root.removeEventListener('wheel', handleWheel)
 
+        // Rimuove eventuali animazioni ancora in corso
+        gsap.killTweensOf("*")
     })
 </script>
 
@@ -62,10 +120,3 @@
         </div>
     </section>
 </template>
-
-<style>
-    body, html {
-        overflow: hidden;
-        height: 100dvh;
-    }
-</style>

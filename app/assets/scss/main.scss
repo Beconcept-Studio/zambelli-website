@@ -95,28 +95,42 @@ p + p , ul + p , p + ul, ol + p , p + ol{
 .zambelli-gallery-home{
   .medias{
     img{
-      @apply w-[1px] h-[1px] absolute top-0 left-0 invisible pointer-events-none;
-      &.size-one{
-        @apply w-[20vw] h-auto;
-      }
-      &.size-two{
-        @apply w-[25vw] h-auto;
-      }
-      &.size-three{
-        @apply w-[30vw] h-auto;
-      }
-      &.size-four{
-        @apply w-[35vw] h-auto;
-      }
-      &.size-five{
-        @apply w-[40vw] h-auto;
-      }
-      &.size-six{
-        @apply w-[45vw] h-auto;
-      }
-      &.size-seven{
-        @apply w-[50vw] h-auto;
-      }
+      width: 1px;
+      height: 1px;
+      top: 0;
+      left: 0;
+      position: absolute;
+      visibility: hidden;
+      pointer-events: none;
+    }
+  }
+  & > img{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    object-fit: cover;
+    border-radius: 0.3vw;
+
+    &.size-one{
+      @apply w-[25vw] h-auto;
+    }
+    &.size-two{
+      @apply w-[17vw] h-auto;
+    }
+    &.size-three{
+      @apply w-[20vw] h-auto;
+    }
+    &.size-four{
+      @apply w-[18vw] h-auto;
+    }
+    &.size-five{
+      @apply w-[27vw] h-auto;
+    }
+    &.size-six{
+      @apply w-[15vw] h-auto;
+    }
+    &.size-seven{
+      @apply w-[12vw] h-auto;
     }
   }
 }
