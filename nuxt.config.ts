@@ -55,7 +55,8 @@ export default defineNuxtConfig({
         'gsap',
         'gsap/ScrollTrigger',
       ]
-    }
+    },
+    plugins: [require('vite-svg-loader')()]
   },
   googleFonts: {
     families: {
