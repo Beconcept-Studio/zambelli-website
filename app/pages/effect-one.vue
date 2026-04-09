@@ -2,7 +2,7 @@
     import { useGalleryAnimation } from '@/composables/useHomeAnimation'
     useGalleryAnimation({
         rootSelector: '.zambelli-gallery-home',
-        triggerDelta: 600
+        triggerDelta: 500
     })
 </script>
 
