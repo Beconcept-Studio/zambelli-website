@@ -1,6 +1,81 @@
+@font-face {
+  font-family: "HelveticaNow";
+  src: 
+    url("/fonts/HelveticaNowDisplay-Light.woff2") format("woff2"),
+    url("/fonts/HelveticaNowDisplay-Light.woff") format("woff");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "HelveticaNow";
+  src: 
+    url("/fonts/HelveticaNowDisplay-LightIta.woff2") format("woff2"),
+    url("/fonts/HelveticaNowDisplay-LightIta.woff") format("woff");
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "HelveticaNow";
+  src: 
+    url("/fonts/HelveticaNowDisplay-Regular.woff2") format("woff2"),
+    url("/fonts/HelveticaNowDisplay-Regular.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "HelveticaNow";
+  src: 
+    url("/fonts/HelveticaNowDisplay-RegIta.woff2") format("woff2"),
+    url("/fonts/HelveticaNowDisplay-RegIta.woff") format("woff");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "HelveticaNow";
+  src: 
+    url("/fonts/HelveticaNowDisplay-Medium.woff2") format("woff2"),
+    url("/fonts/HelveticaNowDisplay-Medium.woff") format("woff");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "HelveticaNow";
+  src: 
+    url("/fonts/HelveticaNowDisplay-MedIta.woff2") format("woff2"),
+    url("/fonts/HelveticaNowDisplay-MedIta.woff") format("woff");
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "HelveticaNow";
+  src: 
+    url("/fonts/HelveticaNowDisplay-Bold.woff2") format("woff2"),
+    url("/fonts/HelveticaNowDisplay-Bold.woff") format("woff");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "HelveticaNow";
+  src: 
+    url("/fonts/HelveticaNowDisplay-BoldIta.woff2") format("woff2"),
+    url("/fonts/HelveticaNowDisplay-BoldIta.woff") format("woff");
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+
+
 //COMMON CONTAINERS
 html{
-  @apply overflow-x-clip font-roboto;
+  @apply overflow-x-clip font-helvetica;
 }
 .page-enter-active,
 .page-leave-active {
@@ -67,25 +142,25 @@ section{
   @apply flex flex-col-reverse md:grid;
 }
 .h1 {
-  @apply font-roboto font-normal lg:text-[80px] text-[64px] leading-[110%];
+  @apply font-helvetica font-bold lg:text-[80px] text-[64px] leading-[110%];
 }
 .h2 {
-  @apply font-roboto font-normal lg:text-[64px] text-[48px] leading-[110%];
+  @apply font-helvetica font-bold lg:text-[64px] text-[48px] leading-[110%];
 }
 .h3 {
-  @apply font-roboto font-normal lg:text-[56px] text-[40px] leading-[115%];
+  @apply font-helvetica font-bold lg:text-[56px] text-[40px] leading-[115%];
 }
 .h3small {
-  @apply font-roboto font-normal lg:text-[48px] text-[32px] leading-[115%];
+  @apply font-helvetica font-bold lg:text-[48px] text-[32px] leading-[115%];
 }
 .h4 {
-  @apply font-roboto font-normal lg:text-[32px] text-[24px] leading-[130%];
+  @apply font-helvetica font-medium lg:text-[32px] text-[24px] leading-[130%];
 }
 .h5 {
-  @apply font-roboto font-medium lg:text-[20px] text-[18px] leading-[150%];
+  @apply font-helvetica font-medium lg:text-[20px] text-[18px] leading-[150%];
 }
 .h6 {
-  @apply font-roboto font-medium text-sm uppercase;
+  @apply font-helvetica font-medium text-sm uppercase;
 }
 p + p , ul + p , p + ul, ol + p , p + ol{
   @apply pt-4;

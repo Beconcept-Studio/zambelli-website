@@ -7,6 +7,7 @@ export default {
     extend: {
       fontFamily: {
         roboto: ['Roboto', 'sans-serif'],
+        helvetica: ['HelveticaNow', 'sans-serif'],
       },
     },
   },
