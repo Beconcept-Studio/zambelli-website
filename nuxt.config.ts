@@ -38,7 +38,7 @@ export default defineNuxtConfig({
   app: {
     pageTransition: { name: 'page', mode: 'out-in' },
   },
-  modules: ['@nuxtjs/tailwindcss', '@nuxtjs/google-fonts'],
+  modules: ['@nuxtjs/tailwindcss', '@nuxtjs/google-fonts' , 'nuxt-locomotive-scroll'],
   css: ['~/assets/scss/main.scss'],
   vite: {
     css: {
