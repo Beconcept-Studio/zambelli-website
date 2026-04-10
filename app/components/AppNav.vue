@@ -8,9 +8,9 @@
         <NuxtLink class="aspect-square p-3 rounded-full flex items-center justify-center transition-all duration-300 hover:bg-white" exactActiveClass="bg-white" to="/">
             <HomeIcon class="w-3 h-3" />
         </NuxtLink>
-        <NuxtLink class="px-3 py-1 h-9 rounded-full flex items-center justify-center text-center leading-none transition-all duration-300 hover:bg-white" exactActiveClass="bg-white" to="/blog">Blog</NuxtLink>
-        <NuxtLink class="px-3 py-1 h-9 rounded-full flex items-center justify-center text-center leading-none transition-all duration-300 hover:bg-white" exactActiveClass="bg-white" to="/single-post">Single Post</NuxtLink>
-        <NuxtLink class="px-3 py-1 h-9 rounded-full flex items-center justify-center text-center leading-none transition-all duration-300 hover:bg-white" exactActiveClass="bg-white" to="/effect-one">Anim. #1</NuxtLink>
-        <NuxtLink class="px-3 py-1 h-9 rounded-full flex items-center justify-center text-center leading-none transition-all duration-300 hover:bg-white" exactActiveClass="bg-white" to="/contacts">Contacts</NuxtLink>
+        <NuxtLink class="px-3 py-1 h-9 rounded-full flex items-center justify-center text-center leading-none transition-all duration-300 hover:bg-white" exactActiveClass="bg-white" to="/works">Works</NuxtLink>
+        <NuxtLink class="px-3 py-1 h-9 rounded-full flex items-center justify-center text-center leading-none transition-all duration-300 hover:bg-white" exactActiveClass="bg-white" to="/studio">Studio</NuxtLink>
+        <NuxtLink class="px-3 py-1 h-9 rounded-full flex items-center justify-center text-center leading-none transition-all duration-300 hover:bg-white" exactActiveClass="bg-white" to="/news">News</NuxtLink>
+        <NuxtLink class="px-3 py-1 h-9 rounded-full flex items-center justify-center text-center leading-none transition-all duration-300 hover:bg-white" exactActiveClass="bg-white" to="/contacts">Contact</NuxtLink>
     </nav>
 </template>
