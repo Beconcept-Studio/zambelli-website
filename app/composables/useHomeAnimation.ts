@@ -61,10 +61,21 @@ export function useGalleryAnimation({
     currentIndex.value = (currentIndex.value + 1) % imagesAll.length
   }
 
-  onMounted(() => {
-    document.documentElement.classList.add('overflow-hidden', 'h-[100dvh]')
-    document.body.classList.add('overflow-hidden', 'h-[100dvh]')
+  // Aggiunge le classi quando la pagina è attiva
+  useHead({
+    htmlAttrs: { class: 'overscroll-none height-[100dvh]' },
+    bodyAttrs: { class: 'overscroll-none height-[100dvh]' },
+  })
 
+  // Rimuove le classi PRIMA che la transizione di uscita parta
+  onBeforeRouteLeave(() => {
+    document.documentElement.classList.remove('overscroll-none' , 'height-[100dvh]')
+    document.body.classList.remove('overscroll-none' , 'height-[100dvh]')
+  })
+
+
+  onMounted(() => {
+    
     root = document.querySelector(rootSelector)
     if (!root) return
 
@@ -101,9 +112,7 @@ export function useGalleryAnimation({
   })
 
   onUnmounted(() => {
-    document.documentElement.classList.remove('overflow-hidden', 'h-[100dvh]')
-    document.body.classList.remove('overflow-hidden', 'h-[100dvh]')
-
+    
     if (root && handleWheel) root.removeEventListener('wheel', handleWheel)
     gsap.killTweensOf("*")
   })

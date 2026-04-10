@@ -1,6 +1,6 @@
 <script setup lang="ts">
     definePageMeta({
-      layout: 'works',
+        layout: 'default',
     })
     import { useWorksAnimation } from '@/composables/useWorksAnimation'
     useWorksAnimation({
@@ -9,7 +9,7 @@
 </script>
 <template>
   <main class="">
-    <section class="zambelli-gallery-works w-[100dvw] h-[100dvh]">
+    <section class="zambelli-gallery-works overflow-hidden h-[100dvh] overscroll-none">
       <div class="container grid grid-cols-[repeat(2,1fr)] w-max will-change-transform">
         <div class="content grid w-max grid-cols-[repeat(5,1fr)] gap-[10vw] p-[5vw] pointer-events-none">
             <div class="media w-[25vw] aspect-square select-none"><img class="w-full object-contain h-full block" src="/effect-one/1.jpg" alt=""></div>

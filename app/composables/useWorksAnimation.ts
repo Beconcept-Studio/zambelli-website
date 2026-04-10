@@ -9,10 +9,21 @@ export function useWorksAnimation({
     let root: HTMLElement | null = null
     const { $gsap: gsap, $Observer: Observer } = useNuxtApp()
     let observer;
-    
-    onMounted(() => {
-        document.documentElement.classList.add('overflow-hidden')
-        document.body.classList.add('overflow-hidden')
+
+    // Aggiunge le classi quando la pagina è attiva
+    useHead({
+        htmlAttrs: { class: 'overflow-hidden h-[100dvh]' },
+        bodyAttrs: { class: 'overflow-hidden h-[100dvh]' },
+    })
+
+    // Rimuove le classi PRIMA che la transizione di uscita parta
+    onBeforeRouteLeave(() => {
+        document.documentElement.classList.remove('overflow-hidden', 'h-[100dvh]')
+        document.body.classList.remove('overflow-hidden', 'h-[100dvh]')
+    })
+
+    onMounted( async () => {
+        await nextTick()
         const { $gsap: gsap, $Observer: Observer } = useNuxtApp()
 
         root = document.querySelector(rootSelector)
@@ -45,7 +56,7 @@ export function useWorksAnimation({
         let incrX = 0, incrY = 0;
     
         observer = Observer.create({
-            target: window,
+            target: root,
             type: "wheel,touch,pointer", // Handles wheel, touch, and drag
             onChangeX: (self) => {
                 if(self.event.type === "wheel")
@@ -73,8 +84,6 @@ export function useWorksAnimation({
 
     })
     onUnmounted(() => {
-      document.documentElement.classList.remove('overflow-hidden')
-      document.body.classList.remove('overflow-hidden')
       observer?.kill()
     })
 

@@ -1,3 +1,7 @@
 <template>
-  <main class="verticalspace space-top space-bottom"></main>
+  <section class="overflow-hidden h-[100dvh]">
+      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-60">
+        News page
+      </div>
+  </section>
 </template>
