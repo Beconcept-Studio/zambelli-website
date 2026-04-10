@@ -40,19 +40,21 @@ export function useGalleryAnimation({
       xPercent: -50 + (Math.random() - 0.5) * 150,
       yPercent: -50 + (Math.random() - 0.5) * 30,
       rotation: (Math.random() - 0.5) * 20,
-      scaleX: 1.05,
-      scaleY: 1.2
+      scaleX: 1.025,
+      scaleY: 1.1,
+      filter: "blur(10px)",
     }, {
       scaleX: 1,
       scaleY: 1,
+      filter: "blur(0px)",
       ease: 'power4.out',
-      duration: 0.15
+      duration: 0.5
     })
     tl.to(image, {
       scaleX: 0.96,
       scaleY: 0.96,
       ease: 'power4.in',
-      duration: 0.15,
+      duration: 0.5,
       delay: 2
     })
 

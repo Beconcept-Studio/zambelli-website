@@ -75,7 +75,7 @@
 
 //COMMON CONTAINERS
 html{
-  @apply overflow-x-clip font-helvetica;
+  @apply overflow-x-clip font-helvetica overscroll-x-none;
 }
 .page-enter-active,
 .page-leave-active {

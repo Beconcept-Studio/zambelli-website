@@ -2,7 +2,7 @@
     import { useGalleryAnimation } from '@/composables/useHomeAnimation'
     useGalleryAnimation({
         rootSelector: '.zambelli-gallery-home',
-        triggerDelta:   200
+        triggerDelta:   400
     })
 </script>
 
@@ -12,6 +12,12 @@
           Scroll to discover
         </div>
         <div class="medias">
+            <img src="/effect-one/1.jpg" alt="">
+            <img src="/effect-one/2.jpg" alt="">
+            <img src="/effect-one/3.jpg" alt="">
+            <img src="/effect-one/4.jpg" alt="">
+            <img src="/effect-one/5.jpg" alt="">
+            <img src="/effect-one/6.jpg" alt="">
             <img src="/effect-one/1.jpg" alt="">
             <img src="/effect-one/2.jpg" alt="">
             <img src="/effect-one/3.jpg" alt="">
