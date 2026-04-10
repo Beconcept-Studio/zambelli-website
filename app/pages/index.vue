@@ -1,4 +1,7 @@
 <script setup lang="ts">
+    definePageMeta({
+        layout: 'home',
+    })
     import { useGalleryAnimation } from '@/composables/useHomeAnimation'
     useGalleryAnimation({
         rootSelector: '.zambelli-gallery-home',

@@ -1,4 +1,7 @@
 <script setup lang="ts">
+    definePageMeta({
+      layout: 'works',
+    })
     import { useWorksAnimation } from '@/composables/useWorksAnimation'
     useWorksAnimation({
       rootSelector: '.zambelli-gallery-works',
