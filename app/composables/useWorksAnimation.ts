@@ -1,86 +1,103 @@
-import { onMounted, onUnmounted, ref } from 'vue'
+// composables/useWorksAnimation.ts
+import { onMounted, onUnmounted } from 'vue'
+
 interface UseWorksAnimationOptions {
   rootSelector: string
 }
-export function useWorksAnimation({
-  rootSelector,
-}: UseWorksAnimationOptions) {
-    let container: HTMLElement | null = null
-    let root: HTMLElement | null = null
-    const { $gsap: gsap, $Observer: Observer } = useNuxtApp()
-    let observer;
 
-    // Aggiunge le classi quando la pagina è attiva
-    useHead({
-        htmlAttrs: { class: 'overflow-hidden h-[100dvh]' },
-        bodyAttrs: { class: 'overflow-hidden h-[100dvh]' },
+export function useWorksAnimation({ rootSelector }: UseWorksAnimationOptions) {
+  const { $gsap: gsap, $Observer: Observer } = useNuxtApp()
+  
+  let container: HTMLElement | null = null
+  let root: HTMLElement | null = null
+  let observer: ReturnType<typeof Observer.create> | null = null
+
+  // Flag per distinguere drag da click
+  const isDragging = ref(false)
+  let dragDistance = 0
+
+  useHead({
+    htmlAttrs: { class: 'overflow-hidden h-[100dvh]' },
+    bodyAttrs: { class: 'overflow-hidden h-[100dvh]' },
+  })
+
+  onBeforeRouteLeave(() => {
+    document.documentElement.classList.remove('overflow-hidden', 'h-[100dvh]')
+    document.body.classList.remove('overflow-hidden', 'h-[100dvh]')
+  })
+
+  onMounted(async () => {
+    await nextTick()
+
+    root = document.querySelector(rootSelector)
+    if (!root) return
+
+    container = root.querySelector('.container') as HTMLElement
+    const content = container.querySelector('.content') as HTMLElement
+
+    const contentWidth = content.clientWidth
+    const wrapX = gsap.utils.wrap(-contentWidth, 0)
+    const xTo = gsap.quickTo(container, 'x', {
+      duration: 1.5,
+      ease: 'power4',
+      modifiers: { x: gsap.utils.unitize(wrapX) },
     })
 
-    // Rimuove le classi PRIMA che la transizione di uscita parta
-    onBeforeRouteLeave(() => {
-        document.documentElement.classList.remove('overflow-hidden', 'h-[100dvh]')
-        document.body.classList.remove('overflow-hidden', 'h-[100dvh]')
+    const contentHeight = content.clientHeight
+    const wrapY = gsap.utils.wrap(-contentHeight, 0)
+    const yTo = gsap.quickTo(container, 'y', {
+      duration: 1.5,
+      ease: 'power4',
+      modifiers: { y: gsap.utils.unitize(wrapY) },
     })
 
-    onMounted( async () => {
-        await nextTick()
-        const { $gsap: gsap, $Observer: Observer } = useNuxtApp()
+    let incrX = 0, incrY = 0
 
-        root = document.querySelector(rootSelector)
-        if (!root) return
+    observer = Observer.create({
+      target: root,
+      type: 'wheel,touch,pointer',
 
-        container = root.querySelector('.container')as HTMLElement
-        const content = container.querySelector('.content') as HTMLElement
-        
-        const contentWidth = content.clientWidth
-        const wrapX = gsap.utils.wrap(-contentWidth, 0)
+      // Resetta il drag ad ogni nuovo pointer down
+      onPress: () => {
+        dragDistance = 0
+        isDragging.value = false
+      },
 
-        const xTo = gsap.quickTo(container, 'x', {
-            duration: 1.5, // Will change over 1.5s
-            ease: "power4", // Non-linear
-            modifiers: {
-                x: gsap.utils.unitize(wrapX)
-            }
-        })
-        
-        const contentHeight = content.clientHeight
-        const wrapY = gsap.utils.wrap(-contentHeight, 0)
-        const yTo = gsap.quickTo(container, 'y', {
-            duration: 1.5, // Will change over 1.5s
-            ease: "power4", // Non-linear
-            modifiers: {
-                y: gsap.utils.unitize(wrapY)
-            }
-        })
+      onChangeX: (self) => {
+        dragDistance += Math.abs(self.deltaX)
+        // Soglia: 6px di movimento = è un drag, non un click
+        if (dragDistance > 6) isDragging.value = true
 
-        let incrX = 0, incrY = 0;
-    
-        observer = Observer.create({
-            target: root,
-            type: "wheel,touch,pointer", // Handles wheel, touch, and drag
-            onChangeX: (self) => {
-                if(self.event.type === "wheel")
-                    incrX -= self.deltaX
-                else
-                    incrX += self.deltaX * 2
+        incrX += self.event.type === 'wheel' ? -self.deltaX : self.deltaX * 2
+        xTo(incrX)
+      },
 
-                xTo(incrX) // smoothly animate to the new x position
-            },
-            onChangeY: (self) => {
-                if(self.event.type === "wheel")
-                    incrY -= self.deltaY // Update incrY based on the vertical movement
-                else 
-                    incrY += self.deltaY * 2
+      onChangeY: (self) => {
+        dragDistance += Math.abs(self.deltaY)
+        if (dragDistance > 6) isDragging.value = true
 
-                yTo(incrY) // Smoothly animate to the new y position
-            }
-        })
-        
-    
+        incrY += self.event.type === 'wheel' ? -self.deltaY : self.deltaY * 2
+        yTo(incrY)
+      },
 
+      // Reset al rilascio — ma con un tick di delay
+      // così il @click del .media può leggere isDragging prima del reset
+      onRelease: () => {
+        setTimeout(() => {
+          isDragging.value = false
+          dragDistance = 0
+        }, 50)
+      },
     })
-    onUnmounted(() => {
-      observer?.kill()
-    })
+  })
 
-};
+  onUnmounted(() => {
+    observer?.kill()
+  })
+
+  return {
+    isDragging,
+    pause:  () => observer && (observer.enabled = false),
+    resume: () => observer && (observer.enabled = true),
+  }
+}

@@ -187,19 +187,19 @@ p + p , ul + p , p + ul, ol + p , p + ol{
     border-radius: 0.3vw;
 
     &.size-one{
-      @apply w-[25vw] h-auto;
+      @apply w-[21vw] h-auto;
     }
     &.size-two{
       @apply w-[17vw] h-auto;
     }
     &.size-three{
-      @apply w-[20vw] h-auto;
+      @apply w-[14vw] h-auto;
     }
     &.size-four{
       @apply w-[18vw] h-auto;
     }
     &.size-five{
-      @apply w-[27vw] h-auto;
+      @apply w-[18vw] h-auto;
     }
     &.size-six{
       @apply w-[15vw] h-auto;

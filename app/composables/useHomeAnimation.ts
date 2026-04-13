@@ -1,5 +1,6 @@
 import { onMounted, onUnmounted, ref } from 'vue'
 import gsap from 'gsap'
+
 interface UseGalleryAnimationOptions {
   rootSelector: string
   triggerDelta?: number
@@ -11,10 +12,17 @@ export function useGalleryAnimation({
 }: UseGalleryAnimationOptions) {
   const currentIndex = ref(0)
   let incr = 0
-  let handleWheel: (e: WheelEvent) => void
   let root: HTMLElement | null = null
   let imagesAll: HTMLImageElement[] = []
   const appendedImages = ref<HTMLImageElement[]>([])
+
+  let handleWheel: (e: WheelEvent) => void
+  let handleTouchStart: (e: TouchEvent) => void
+  let handleTouchMove: (e: TouchEvent) => void
+
+  let touchStartX = 0
+  let touchStartY = 0
+  let ticking = false
 
   const classes = [
     'size-one',
@@ -28,8 +36,7 @@ export function useGalleryAnimation({
   function newImage() {
     if (!imagesAll.length || !root) return
 
-    
-    const MAX_ELEMENTS = 6
+    const MAX_ELEMENTS = 12
     const realCount = Math.min(imagesAll.length, MAX_ELEMENTS)
 
     const image = imagesAll[currentIndex.value].cloneNode(true) as HTMLImageElement
@@ -48,13 +55,13 @@ export function useGalleryAnimation({
       rotation: (Math.random() - 0.5) * 20,
       scaleX: 1.025,
       scaleY: 1.1,
-      filter: "blur(10px)",
+      filter: 'blur(10px)',
     }, {
       scaleX: 1,
       scaleY: 1,
-      filter: "blur(0px)",
+      filter: 'blur(0px)',
       ease: 'power4.out',
-      duration: 0.5
+      duration: 0.5,
     })
 
     if (appendedImages.value.length > realCount) {
@@ -65,29 +72,38 @@ export function useGalleryAnimation({
         ease: 'power4.in',
         duration: 0.5,
         delay: 1,
-        onComplete: () => root!.removeChild(oldImage)
+        onComplete: () => root!.removeChild(oldImage),
       })
     }
-
-    
-    console.log(currentIndex.value)
   }
 
-  // Aggiunge le classi quando la pagina è attiva
+  // Logica accumulatore condivisa tra wheel e touch
+  function accumulate(delta: number) {
+    incr += delta
+
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        if (incr > triggerDelta) {
+          newImage()
+          incr = 0
+        }
+        ticking = false
+      })
+      ticking = true
+    }
+  }
+
   useHead({
     htmlAttrs: { class: 'overscroll-none height-[100dvh]' },
     bodyAttrs: { class: 'overscroll-none height-[100dvh]' },
   })
 
-  // Rimuove le classi PRIMA che la transizione di uscita parta
   onBeforeRouteLeave(() => {
-    document.documentElement.classList.remove('overscroll-none' , 'height-[100dvh]')
-    document.body.classList.remove('overscroll-none' , 'height-[100dvh]')
+    document.documentElement.classList.remove('overscroll-none', 'height-[100dvh]')
+    document.body.classList.remove('overscroll-none', 'height-[100dvh]')
   })
 
-
   onMounted(() => {
-    
     root = document.querySelector(rootSelector)
     if (!root) return
 
@@ -105,27 +121,34 @@ export function useGalleryAnimation({
       img.classList.add(randomClass)
     })
 
-    let ticking = false
     handleWheel = (e: WheelEvent) => {
-      incr += Math.abs(e.deltaY)
-      if (!ticking) {
-        requestAnimationFrame(() => {
-          if (incr > triggerDelta) {
-            newImage()
-            incr = 0
-          }
-          ticking = false
-        })
-        ticking = true
-      }
+      accumulate(Math.abs(e.deltaY))
+    }
+
+    handleTouchStart = (e: TouchEvent) => {
+      touchStartX = e.touches[0].clientX
+      touchStartY = e.touches[0].clientY
+    }
+
+    handleTouchMove = (e: TouchEvent) => {
+      const dx = Math.abs(e.touches[0].clientX - touchStartX)
+      const dy = Math.abs(e.touches[0].clientY - touchStartY)
+
+      touchStartX = e.touches[0].clientX
+      touchStartY = e.touches[0].clientY
+
+      accumulate(Math.max(dx, dy))
     }
 
     root.addEventListener('wheel', handleWheel, { passive: true })
+    root.addEventListener('touchstart', handleTouchStart, { passive: true })
+    root.addEventListener('touchmove', handleTouchMove, { passive: true })
   })
 
   onUnmounted(() => {
-    
-    if (root && handleWheel) root.removeEventListener('wheel', handleWheel)
-    gsap.killTweensOf("*")
+    if (root && handleWheel)      root.removeEventListener('wheel', handleWheel)
+    if (root && handleTouchStart) root.removeEventListener('touchstart', handleTouchStart)
+    if (root && handleTouchMove)  root.removeEventListener('touchmove', handleTouchMove)
+    gsap.killTweensOf('*')
   })
 }
