@@ -10,9 +10,10 @@
 </script>
 
 <template>
-    <section class="overflow-hidden h-[100dvh] overscroll-none zambelli-gallery-home ">
-        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-60">
-          Scroll to discover
+    <section class="page-wrapper overflow-hidden h-[100dvh] overscroll-none zambelli-gallery-home flex items-center justify-center">
+        <div class="intro-slogan relative font-medium">
+            <div class="-translate-y-1/2 w-full h-full text-black">Dove la materia incontra l'anima</div>
+            <div class="translate-y-1/2 absolute text-center inset-0 w-full text-sm h-full text-gray-400 uppercase">(Scroll to explore)</div>
         </div>
         <div class="medias">
             <img src="/effect-one/1.jpg" alt="">

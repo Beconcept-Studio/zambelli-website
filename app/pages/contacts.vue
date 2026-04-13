@@ -1,5 +1,5 @@
 <template>
-    <div class="space-top-double space-bottom-double div--container space-y-10">
+    <div class="page-wrapper space-top-double space-bottom-double div--container space-y-10">
         <div class="max-w-[540px] mx-auto">
             <img src="/img/mao.png" class="w-full block" />
         </div>

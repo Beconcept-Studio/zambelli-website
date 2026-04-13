@@ -65,7 +65,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <main class="min-h-[100dvh]">
+  <main class="page-wrapper min-h-[100dvh]">
     <div class="hero w-full aspect-video overflow-hidden">
       <img
         ref="heroRef"

@@ -1,5 +1,5 @@
 <template>
-  <main class="verticalspace space-top space-bottom">
+  <main class="page-wrapper verticalspace space-top space-bottom">
     <section class="">
       <div class="div--container">
         <div class="space-y-4">
