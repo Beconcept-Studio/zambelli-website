@@ -14,6 +14,7 @@ export function useGalleryAnimation({
   let handleWheel: (e: WheelEvent) => void
   let root: HTMLElement | null = null
   let imagesAll: HTMLImageElement[] = []
+  const appendedImages = ref<HTMLImageElement[]>([])
 
   const classes = [
     'size-one',
@@ -27,14 +28,19 @@ export function useGalleryAnimation({
   function newImage() {
     if (!imagesAll.length || !root) return
 
+    
+    const MAX_ELEMENTS = 6
+    const realCount = Math.min(imagesAll.length, MAX_ELEMENTS)
+
     const image = imagesAll[currentIndex.value].cloneNode(true) as HTMLImageElement
     const randomClass = classes[Math.floor(Math.random() * classes.length)]
     image.classList.add(randomClass)
     root.appendChild(image)
+    appendedImages.value.push(image)
 
-    const tl = gsap.timeline({
-      onComplete: () => root!.removeChild(image)
-    })
+    currentIndex.value = (currentIndex.value + 1) % imagesAll.length
+
+    const tl = gsap.timeline()
 
     tl.fromTo(image, {
       xPercent: -50 + (Math.random() - 0.5) * 150,
@@ -50,15 +56,21 @@ export function useGalleryAnimation({
       ease: 'power4.out',
       duration: 0.5
     })
-    tl.to(image, {
-      scaleX: 0.96,
-      scaleY: 0.96,
-      ease: 'power4.in',
-      duration: 0.5,
-      delay: 2
-    })
 
-    currentIndex.value = (currentIndex.value + 1) % imagesAll.length
+    if (appendedImages.value.length > realCount) {
+      const oldImage = appendedImages.value.shift()!
+      tl.to(oldImage, {
+        scaleX: 0.96,
+        scaleY: 0.96,
+        ease: 'power4.in',
+        duration: 0.5,
+        delay: 1,
+        onComplete: () => root!.removeChild(oldImage)
+      })
+    }
+
+    
+    console.log(currentIndex.value)
   }
 
   // Aggiunge le classi quando la pagina è attiva

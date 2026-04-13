@@ -65,8 +65,6 @@ export function useWorksAnimation({
                     incrX += self.deltaX * 2
 
                 xTo(incrX) // smoothly animate to the new x position
-
-                console.log('incrX', incrX);
             },
             onChangeY: (self) => {
                 if(self.event.type === "wheel")
@@ -75,8 +73,6 @@ export function useWorksAnimation({
                     incrY += self.deltaY * 2
 
                 yTo(incrY) // Smoothly animate to the new y position
-
-                console.log('incrY', incrY);
             }
         })
         

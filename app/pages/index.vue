@@ -10,7 +10,7 @@
 </script>
 
 <template>
-    <section class="overflow-hidden h-[100dvh] zambelli-gallery-home ">
+    <section class="overflow-hidden h-[100dvh] overscroll-none zambelli-gallery-home ">
         <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-60">
           Scroll to discover
         </div>

@@ -17,16 +17,11 @@
             <div class="media w-[25vw] aspect-square select-none"><img class="w-full object-contain h-full block" src="/effect-one/3.jpg" alt=""></div>
             <div class="media w-[25vw] aspect-square select-none"><img class="w-full object-contain h-full block" src="/effect-one/4.jpg" alt=""></div>
             <div class="media w-[25vw] aspect-square select-none"><img class="w-full object-contain h-full block" src="/effect-one/5.jpg" alt=""></div>
-            <div class="media w-[25vw] aspect-square select-none"><img class="w-full object-contain h-full block" src="/effect-one/1.jpg" alt=""></div>
-            <div class="media w-[25vw] aspect-square select-none"><img class="w-full object-contain h-full block" src="/effect-one/2.jpg" alt=""></div>
-            <div class="media w-[25vw] aspect-square select-none"><img class="w-full object-contain h-full block" src="/effect-one/3.jpg" alt=""></div>
-            <div class="media w-[25vw] aspect-square select-none"><img class="w-full object-contain h-full block" src="/effect-one/4.jpg" alt=""></div>
-            <div class="media w-[25vw] aspect-square select-none"><img class="w-full object-contain h-full block" src="/effect-one/5.jpg" alt=""></div>
-            <div class="media w-[25vw] aspect-square select-none"><img class="w-full object-contain h-full block" src="/effect-one/1.jpg" alt=""></div>
-            <div class="media w-[25vw] aspect-square select-none"><img class="w-full object-contain h-full block" src="/effect-one/2.jpg" alt=""></div>
-            <div class="media w-[25vw] aspect-square select-none"><img class="w-full object-contain h-full block" src="/effect-one/3.jpg" alt=""></div>
-            <div class="media w-[25vw] aspect-square select-none"><img class="w-full object-contain h-full block" src="/effect-one/4.jpg" alt=""></div>
-            <div class="media w-[25vw] aspect-square select-none"><img class="w-full object-contain h-full block" src="/effect-one/5.jpg" alt=""></div>
+            <div class="media w-[25vw] aspect-square select-none"><img class="w-full object-contain h-full block" src="/effect-one/6.jpg" alt=""></div>
+            <div class="media w-[25vw] aspect-square select-none"><img class="w-full object-contain h-full block" src="/effect-one/7.jpg" alt=""></div>
+            <div class="media w-[25vw] aspect-square select-none"><img class="w-full object-contain h-full block" src="/effect-one/8.jpg" alt=""></div>
+            <div class="media w-[25vw] aspect-square select-none"><img class="w-full object-contain h-full block" src="/effect-one/9.jpg" alt=""></div>
+            <div class="media w-[25vw] aspect-square select-none"><img class="w-full object-contain h-full block" src="/effect-one/10.jpg" alt=""></div>
         </div>
         <div class="content grid w-max grid-cols-[repeat(5,1fr)] gap-[10vw] p-[5vw] pointer-events-none" aria-hidden="true">
             <div class="media w-[25vw] aspect-square select-none"><img class="w-full object-contain h-full block" src="/effect-one/1.jpg" alt=""></div>
@@ -34,16 +29,11 @@
             <div class="media w-[25vw] aspect-square select-none"><img class="w-full object-contain h-full block" src="/effect-one/3.jpg" alt=""></div>
             <div class="media w-[25vw] aspect-square select-none"><img class="w-full object-contain h-full block" src="/effect-one/4.jpg" alt=""></div>
             <div class="media w-[25vw] aspect-square select-none"><img class="w-full object-contain h-full block" src="/effect-one/5.jpg" alt=""></div>
-            <div class="media w-[25vw] aspect-square select-none"><img class="w-full object-contain h-full block" src="/effect-one/1.jpg" alt=""></div>
-            <div class="media w-[25vw] aspect-square select-none"><img class="w-full object-contain h-full block" src="/effect-one/2.jpg" alt=""></div>
-            <div class="media w-[25vw] aspect-square select-none"><img class="w-full object-contain h-full block" src="/effect-one/3.jpg" alt=""></div>
-            <div class="media w-[25vw] aspect-square select-none"><img class="w-full object-contain h-full block" src="/effect-one/4.jpg" alt=""></div>
-            <div class="media w-[25vw] aspect-square select-none"><img class="w-full object-contain h-full block" src="/effect-one/5.jpg" alt=""></div>
-            <div class="media w-[25vw] aspect-square select-none"><img class="w-full object-contain h-full block" src="/effect-one/1.jpg" alt=""></div>
-            <div class="media w-[25vw] aspect-square select-none"><img class="w-full object-contain h-full block" src="/effect-one/2.jpg" alt=""></div>
-            <div class="media w-[25vw] aspect-square select-none"><img class="w-full object-contain h-full block" src="/effect-one/3.jpg" alt=""></div>
-            <div class="media w-[25vw] aspect-square select-none"><img class="w-full object-contain h-full block" src="/effect-one/4.jpg" alt=""></div>
-            <div class="media w-[25vw] aspect-square select-none"><img class="w-full object-contain h-full block" src="/effect-one/5.jpg" alt=""></div>
+            <div class="media w-[25vw] aspect-square select-none"><img class="w-full object-contain h-full block" src="/effect-one/6.jpg" alt=""></div>
+            <div class="media w-[25vw] aspect-square select-none"><img class="w-full object-contain h-full block" src="/effect-one/7.jpg" alt=""></div>
+            <div class="media w-[25vw] aspect-square select-none"><img class="w-full object-contain h-full block" src="/effect-one/8.jpg" alt=""></div>
+            <div class="media w-[25vw] aspect-square select-none"><img class="w-full object-contain h-full block" src="/effect-one/9.jpg" alt=""></div>
+            <div class="media w-[25vw] aspect-square select-none"><img class="w-full object-contain h-full block" src="/effect-one/10.jpg" alt=""></div>
         </div>
         <div class="content grid w-max grid-cols-[repeat(5,1fr)] gap-[10vw] p-[5vw] pointer-events-none" aria-hidden="true">
             <div class="media w-[25vw] aspect-square select-none"><img class="w-full object-contain h-full block" src="/effect-one/1.jpg" alt=""></div>
@@ -51,16 +41,11 @@
             <div class="media w-[25vw] aspect-square select-none"><img class="w-full object-contain h-full block" src="/effect-one/3.jpg" alt=""></div>
             <div class="media w-[25vw] aspect-square select-none"><img class="w-full object-contain h-full block" src="/effect-one/4.jpg" alt=""></div>
             <div class="media w-[25vw] aspect-square select-none"><img class="w-full object-contain h-full block" src="/effect-one/5.jpg" alt=""></div>
-            <div class="media w-[25vw] aspect-square select-none"><img class="w-full object-contain h-full block" src="/effect-one/1.jpg" alt=""></div>
-            <div class="media w-[25vw] aspect-square select-none"><img class="w-full object-contain h-full block" src="/effect-one/2.jpg" alt=""></div>
-            <div class="media w-[25vw] aspect-square select-none"><img class="w-full object-contain h-full block" src="/effect-one/3.jpg" alt=""></div>
-            <div class="media w-[25vw] aspect-square select-none"><img class="w-full object-contain h-full block" src="/effect-one/4.jpg" alt=""></div>
-            <div class="media w-[25vw] aspect-square select-none"><img class="w-full object-contain h-full block" src="/effect-one/5.jpg" alt=""></div>
-            <div class="media w-[25vw] aspect-square select-none"><img class="w-full object-contain h-full block" src="/effect-one/1.jpg" alt=""></div>
-            <div class="media w-[25vw] aspect-square select-none"><img class="w-full object-contain h-full block" src="/effect-one/2.jpg" alt=""></div>
-            <div class="media w-[25vw] aspect-square select-none"><img class="w-full object-contain h-full block" src="/effect-one/3.jpg" alt=""></div>
-            <div class="media w-[25vw] aspect-square select-none"><img class="w-full object-contain h-full block" src="/effect-one/4.jpg" alt=""></div>
-            <div class="media w-[25vw] aspect-square select-none"><img class="w-full object-contain h-full block" src="/effect-one/5.jpg" alt=""></div>
+            <div class="media w-[25vw] aspect-square select-none"><img class="w-full object-contain h-full block" src="/effect-one/6.jpg" alt=""></div>
+            <div class="media w-[25vw] aspect-square select-none"><img class="w-full object-contain h-full block" src="/effect-one/7.jpg" alt=""></div>
+            <div class="media w-[25vw] aspect-square select-none"><img class="w-full object-contain h-full block" src="/effect-one/8.jpg" alt=""></div>
+            <div class="media w-[25vw] aspect-square select-none"><img class="w-full object-contain h-full block" src="/effect-one/9.jpg" alt=""></div>
+            <div class="media w-[25vw] aspect-square select-none"><img class="w-full object-contain h-full block" src="/effect-one/10.jpg" alt=""></div>
         </div>
         <div class="content grid w-max grid-cols-[repeat(5,1fr)] gap-[10vw] p-[5vw] pointer-events-none" aria-hidden="true">
             <div class="media w-[25vw] aspect-square select-none"><img class="w-full object-contain h-full block" src="/effect-one/1.jpg" alt=""></div>
@@ -68,16 +53,11 @@
             <div class="media w-[25vw] aspect-square select-none"><img class="w-full object-contain h-full block" src="/effect-one/3.jpg" alt=""></div>
             <div class="media w-[25vw] aspect-square select-none"><img class="w-full object-contain h-full block" src="/effect-one/4.jpg" alt=""></div>
             <div class="media w-[25vw] aspect-square select-none"><img class="w-full object-contain h-full block" src="/effect-one/5.jpg" alt=""></div>
-            <div class="media w-[25vw] aspect-square select-none"><img class="w-full object-contain h-full block" src="/effect-one/1.jpg" alt=""></div>
-            <div class="media w-[25vw] aspect-square select-none"><img class="w-full object-contain h-full block" src="/effect-one/2.jpg" alt=""></div>
-            <div class="media w-[25vw] aspect-square select-none"><img class="w-full object-contain h-full block" src="/effect-one/3.jpg" alt=""></div>
-            <div class="media w-[25vw] aspect-square select-none"><img class="w-full object-contain h-full block" src="/effect-one/4.jpg" alt=""></div>
-            <div class="media w-[25vw] aspect-square select-none"><img class="w-full object-contain h-full block" src="/effect-one/5.jpg" alt=""></div>
-            <div class="media w-[25vw] aspect-square select-none"><img class="w-full object-contain h-full block" src="/effect-one/1.jpg" alt=""></div>
-            <div class="media w-[25vw] aspect-square select-none"><img class="w-full object-contain h-full block" src="/effect-one/2.jpg" alt=""></div>
-            <div class="media w-[25vw] aspect-square select-none"><img class="w-full object-contain h-full block" src="/effect-one/3.jpg" alt=""></div>
-            <div class="media w-[25vw] aspect-square select-none"><img class="w-full object-contain h-full block" src="/effect-one/4.jpg" alt=""></div>
-            <div class="media w-[25vw] aspect-square select-none"><img class="w-full object-contain h-full block" src="/effect-one/5.jpg" alt=""></div>
+            <div class="media w-[25vw] aspect-square select-none"><img class="w-full object-contain h-full block" src="/effect-one/6.jpg" alt=""></div>
+            <div class="media w-[25vw] aspect-square select-none"><img class="w-full object-contain h-full block" src="/effect-one/7.jpg" alt=""></div>
+            <div class="media w-[25vw] aspect-square select-none"><img class="w-full object-contain h-full block" src="/effect-one/8.jpg" alt=""></div>
+            <div class="media w-[25vw] aspect-square select-none"><img class="w-full object-contain h-full block" src="/effect-one/9.jpg" alt=""></div>
+            <div class="media w-[25vw] aspect-square select-none"><img class="w-full object-contain h-full block" src="/effect-one/10.jpg" alt=""></div>
         </div>
       </div>
     </section>
