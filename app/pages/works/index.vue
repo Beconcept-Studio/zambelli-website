@@ -1,5 +1,6 @@
 <script setup lang="ts">
 definePageMeta({ layout: 'default' })
+import gsap from 'gsap'
 
 import { useWorksAnimation } from '@/composables/useWorksAnimation'
 
@@ -21,15 +22,43 @@ const works = [
   { id: 10, image: '/effect-one/10.jpg', title: 'Tensione Cromatica' },
 ]
 
-const onWorkClick = (event: MouseEvent, work: typeof works[0]) => {
-  // Se l'utente stava trascinando, ignora il click
-  if (isDragging.value) return
+  const onWorkClick = (event: MouseEvent, work: typeof works[0]) => {
+    if (isDragging.value) return
 
-  const mediaEl = event.currentTarget as HTMLElement
-  capture(mediaEl, work.image)
-  pause()
-  router.push(`/works/${work.id}`)
-}
+    const clickedEl = event.currentTarget as HTMLElement
+
+    // 🎯 1. blocca animazioni/scroll
+    pause()
+
+    // 🌒 2. trova TUTTI i media visibili
+    const allMedia = document.querySelectorAll('.media')
+
+    // 🌫️ 3. fade out degli altri + depth
+    allMedia.forEach((el) => {
+      if (el === clickedEl) return
+
+      gsap.to(el, {
+        opacity: 0.15,
+        filter: 'blur(3px)',
+        duration: 0.4,
+        ease: 'power2.out'
+      })
+    })
+
+    // 🎯 4. spotlight sul selezionato
+    gsap.to(clickedEl, {
+      opacity: 1,
+      filter: 'blur(0px)',
+      duration: 0.4,
+      ease: 'power2.out'
+    })
+
+    const mediaEl = clickedEl
+    capture(mediaEl, work.image)
+    setTimeout(() => {
+      router.push(`/works/${work.id}`)
+    }, 500)
+  }
 </script>
 
 <template>
