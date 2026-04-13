@@ -4,8 +4,8 @@
   const isHome = computed(() => route.path === '/')
 </script>
 <template>
-  <AppLoaderHome v-if="isHome , isFirstLoad" />
-  <AppLoaderDefault v-else="!isHome , isFirstLoad" />
+  <AppLoaderHome v-if="isFirstLoad && isHome" />
+  <AppLoaderDefault v-else-if="isFirstLoad && !isHome" />
   <NuxtLayout>
     <NuxtPage :transition="isFirstLoad ? false : undefined" />
   </NuxtLayout>

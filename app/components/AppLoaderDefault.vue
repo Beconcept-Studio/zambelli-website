@@ -3,10 +3,13 @@
     const overlayEl = useTemplateRef('overlayEl')
     const route = useRoute()
     const { runIntro } = useIntroAnimation()
+    const nuxtApp = useNuxtApp()
 
-    onMounted(async () => {
+    onMounted(() => {
         overlayRef.value = overlayEl.value
-        await runIntro(route.path)
+        nuxtApp.hook('page:finish', async () => {
+            await runIntro(route.path)
+        })
     })
 </script>
 <template>

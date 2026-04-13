@@ -185,6 +185,7 @@ export const useIntroAnimation = () => {
         ease: 'power2.in',
         onComplete: function () {
           el.remove();
+          resolve
         }  
       }, '<')
     })
