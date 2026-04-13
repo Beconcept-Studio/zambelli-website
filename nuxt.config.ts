@@ -12,7 +12,7 @@ export default defineNuxtConfig({
   nitro: {
     prerender: {
       crawlLinks: true, 
-      routes: ['/', '/blog', '/effect-one', '/single-post'],
+      routes: ['/', '/blog', '/single-post'],
     },
     preset: 'static' // oppure puoi ometterlo, viene rilevato da `nuxt generate`
   },
