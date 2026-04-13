@@ -30,23 +30,19 @@ onMounted(() => {
   if (!heroRef.value) return
 
   // Nascondi subito il testo
-  gsap.set(contentRef.value, { autoAlpha: 0, y: 20 })
+  gsap.set(contentRef.value, { autoAlpha: 0 })
 
   const sourceRect = rect.value
 
   if (sourceRect) {
     // --- FLIP ---
     const destRect = heroRef.value.getBoundingClientRect()
-
     const dx     = sourceRect.left + sourceRect.width  / 2 - (destRect.left + destRect.width  / 2)
     const dy     = sourceRect.top  + sourceRect.height / 2 - (destRect.top  + destRect.height / 2)
-    const scaleX = sourceRect.width  / destRect.width
-    const scaleY = sourceRect.height / destRect.height
 
     gsap.timeline({ onComplete: clear })
       .from(heroRef.value, {
         x: dx, y: dy,
-        scaleX, scaleY,
         transformOrigin: 'center center',
         ease: 'power4.inOut',
         duration: 0.75,
@@ -66,13 +62,16 @@ onMounted(() => {
 
 <template>
   <main class="page-wrapper min-h-[100dvh]">
-    <div class="hero w-full aspect-video overflow-hidden">
-      <img
-        ref="heroRef"
-        :src="work?.image"
-        :alt="work?.title"
-        class="w-full h-full object-cover will-change-transform"
-      />
+    <div class="w-screen h-screen flex items-center div--container justify-center bg-red-500">
+      <div class="hero w-full aspect-[2/.7] bg-green-300 overflow-hidden flex items-center justify-center">
+        <img
+          ref="heroRef"
+          :src="work?.image"
+          :alt="work?.title"
+          class="max-h-full"
+        />
+        
+      </div>
     </div>
 
     <div ref="contentRef" class="p-[5vw]">
