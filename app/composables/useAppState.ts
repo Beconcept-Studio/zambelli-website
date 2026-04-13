@@ -3,5 +3,11 @@ export const useAppState = () => {
   const markLoaded = () => {
     isFirstLoad.value = false
   }
-  return { isFirstLoad, markLoaded }
+  const headerClass = computed(() => ({
+    'opacity-0': isFirstLoad.value,
+    'invisible': isFirstLoad.value,
+  }))
+
+
+  return { isFirstLoad, markLoaded, headerClass }
 }
