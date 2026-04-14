@@ -51,7 +51,9 @@ export function useWorksAnimation({ rootSelector }: UseWorksAnimationOptions) {
       modifiers: { y: gsap.utils.unitize(wrapY) },
     })
 
-    let incrX = 0, incrY = 0
+    let incrX = (window.innerWidth - contentWidth) / 2
+    let incrY = (window.innerHeight - contentHeight) / 2
+    gsap.set(container, { x: incrX, y: incrY })
 
     observer = Observer.create({
       target: root,

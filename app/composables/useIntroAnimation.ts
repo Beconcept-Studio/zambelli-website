@@ -22,7 +22,7 @@ export const useIntroAnimation = () => {
       if (!scrollEl) return resolve()
 
       const blurFrom = 6
-      const blurStep = 5
+      const blurStep = 3
 
       const tl = gsap.timeline({ onComplete: resolve })
 

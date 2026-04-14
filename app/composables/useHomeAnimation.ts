@@ -8,7 +8,7 @@ interface UseGalleryAnimationOptions {
 
 export function useGalleryAnimation({
   rootSelector,
-  triggerDelta = 500
+  triggerDelta = 400
 }: UseGalleryAnimationOptions) {
   const currentIndex = ref(0)
   let incr = 0
