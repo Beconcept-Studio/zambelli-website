@@ -16,10 +16,10 @@ export function useWorksAnimation({ rootSelector }: UseWorksAnimationOptions) {
   const isDragging = ref(false)
   let dragDistance = 0
 
-  useHead({
-    htmlAttrs: { class: 'overflow-hidden h-[100dvh]' },
-    bodyAttrs: { class: 'overflow-hidden h-[100dvh]' },
-  })
+  // useHead({
+  //   htmlAttrs: { class: 'overflow-hidden h-[100dvh]' },
+  //   bodyAttrs: { class: 'overflow-hidden h-[100dvh]' },
+  // })
 
   onBeforeRouteLeave(() => {
     document.documentElement.classList.remove('overflow-hidden', 'h-[100dvh]')

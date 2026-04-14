@@ -37,7 +37,20 @@ export default defineNuxtConfig({
   },
   app: {
     pageTransition: { name: 'page', mode: 'out-in' },
+    head: {
+      title: 'Alessandro Zambelli – Dove la materia incontra l\'anima', // default fallback title
+      htmlAttrs: {
+        lang: 'it',
+      },
+      meta: [
+        { name: 'description', content: 'My amazing site.' },
+      ],
+      link: [
+        { rel: 'icon', type: 'image/x-icon', href: '/img/zambelli-fav.png' },
+      ],
+    },
   },
+  
   modules: ['@nuxtjs/tailwindcss', '@nuxtjs/google-fonts' , 'nuxt-locomotive-scroll'],
   css: ['~/assets/scss/main.scss'],
   vite: {

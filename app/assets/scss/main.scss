@@ -75,17 +75,20 @@
 
 //COMMON CONTAINERS
 html{
-  @apply overflow-x-clip font-helvetica overscroll-x-none;
+  @apply overflow-x-clip font-helvetica overscroll-x-none antialiased bg-[#F9F9F9];
 }
 .page-enter-active,
 .page-leave-active {
-  transition: all 0.3s ease;
+  transition: all .75s ease;
 }
 
 .page-enter-from,
 .page-leave-to {
   opacity: 0;
-  transform: translateY(10px);
+  transform: translateY(16px);
+}
+.div--container-verysmall{
+  @apply w-full max-w-[580px] mx-auto xl:px-8 md:px-8 px-6;
 }
 .div--container-small{
   @apply w-full max-w-[1080px] mx-auto xl:px-14 md:px-8 px-6;
@@ -164,6 +167,25 @@ section{
 }
 p + p , ul + p , p + ul, ol + p , p + ol{
   @apply pt-4;
+}
+
+//BUTTONS
+.btn-container{
+  @apply flex gap-2 items-center flex-wrap;
+}
+.btn-container-vert{
+  @apply flex flex-col gap-2;
+}
+.btn{
+  @apply font-normal w-fit rounded-full transition-all px-5 py-2 min-h-[40px] duration-500 outline-none focus:outline-none flex items-center text-center h-fit justify-center cursor-pointer border border-solid gap-1;
+  text-decoration: none !important;
+  svg{
+    @apply block w-full;
+  }
+  &.btn-fill-white{
+    @apply border-glassgray/10 text-black bg-white hover:border-black;
+  }
+  
 }
 
 //HOMEPAGE

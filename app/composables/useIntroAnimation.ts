@@ -43,24 +43,23 @@ export const useIntroAnimation = () => {
       })
       tl.to(titleEl, {
         autoAlpha: 1,
-        duration: 1,
+        duration: .5,
         ease: 'power3.out',
         delay: 1,
       })
 
       for (let i = 1; i <= blurStep; i++) {
         const percent = (i / blurStep) * 100
-        const newBlur = blurFrom - (i / blurStep) * blurFrom // scala da 6 → 0
+        const newBlur = blurFrom - (i / blurStep) * blurFrom
         tl.to(maskEl, {
           clipPath: `polygon(0 0, ${percent}% 0, ${percent}% 100%, 0 100%)`,
-          duration: 1,
-          ease: 'power4.inOut',
-          stagger: 1,
+          duration: .75,
+          ease: "expo.inOut",
         }, '>')
         tl.to(titleEl, {
-          filter: `blur(${newBlur}px)`, // ← backtick
-          duration: 1,
-          ease: 'power4.inOut',
+          filter: `blur(${newBlur}px)`,
+          duration: .75,
+          ease: "expo.inOut",
         } , '<')
       }
       

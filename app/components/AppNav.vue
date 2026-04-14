@@ -74,8 +74,6 @@
                 width: `${elRect.width}px`,
             }
         }
-        console.log(selectorActiveStyle.value.left)
-        console.log(selectorActiveStyle.value.width)
     }
 
     
