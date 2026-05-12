@@ -52,16 +52,16 @@ export function useGalleryAnimation({
     tl.fromTo(image, {
       xPercent: -50 + (Math.random() - 0.5) * 150,
       yPercent: -50 + (Math.random() - 0.5) * 30,
-      rotation: (Math.random() - 0.5) * 20,
-      scaleX: 1.025,
-      scaleY: 1.1,
-      filter: 'blur(10px)',
+      //rotation: (Math.random() - 0.5) * 20,
+      scaleX: 0.975,
+      scaleY: 0.975,
+      //filter: 'blur(10px)',
     }, {
       scaleX: 1,
       scaleY: 1,
-      filter: 'blur(0px)',
+      //filter: 'blur(0px)',
       ease: 'power4.out',
-      duration: 0.5,
+      duration: 0.25,
     })
 
     if (appendedImages.value.length > realCount) {

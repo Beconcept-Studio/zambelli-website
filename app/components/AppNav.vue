@@ -110,17 +110,17 @@
 <template>
   <nav
     ref="headerEl"
-    class="flex items-center gap-1 relative w-fit font-normal text-black/60"
+    class="flex items-center gap-2 relative w-fit font-normal text-black/60"
     @mouseleave="onMouseLeave"
   >
     <div
       ref="dynamicSelector"
-      class="absolute h-full rounded-full bg-white/40 transition-all duration-300 ease-out pointer-events-none"
+      class="absolute h-full bg-black transition-all duration-300 ease-out pointer-events-none"
       :style="selectorStyle"
     />
     <div
       ref="dynamicSelectorActive"
-      class="absolute h-full rounded-full bg-white transition-all duration-300 ease-out pointer-events-none"
+      class="absolute h-full bg-black transition-all duration-300 ease-out pointer-events-none"
       :style="selectorActiveStyle"
     />
 
@@ -128,11 +128,12 @@
         v-for="link in links"
         :key="link.to"
         :data-to="link.to"
+        exactActiveClass='text-white'
         :class="[
             link.to === '/'
             ? 'aspect-square p-3'
-            : 'px-3 py-1 h-9',
-            'rounded-full flex items-center justify-center relative z-10 leading-none'
+            : 'px-2 py-1 h-8',
+            'flex items-center justify-center relative z-10 leading-none hover:text-white transition-colors duration-300'
         ]"
         :to="link.to"
         @mouseenter="onMouseEnter"
