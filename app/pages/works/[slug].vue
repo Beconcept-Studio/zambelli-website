@@ -20,6 +20,16 @@
   const work = computed(() => works.find(w => w.slug === String(route.params.slug)))
   import { useGsapCommon } from '@/composables/useGsapCommon'
   useGsapCommon()
+
+  const swiperindexRef = ref(null)
+  const swiperIndex = useSwiper(swiperindexRef, {
+    loop: false,
+    spaceBetween: 8,
+    slidesPerView: 'auto',
+    speed: 1000,
+    grabCursor: true,
+  })
+
 </script>
 <template>
   <main class="page-wrapper min-h-[100dvh]">
@@ -29,7 +39,7 @@
           ref="heroRef"
           :src="work?.image"
           :alt="work?.title"
-          class="max-h-full max-w-full h-full w-auto"
+          class="max-h-full max-w-full h-full w-auto "
         />
         <div class="space-y-1 text-center">
           <h1 class="h4">{{ work?.title }}</h1>
@@ -176,7 +186,31 @@
           <div class="text-sm">Immagine boxata</div>
         </div>
       </div>
+
+      <!-- Swiper index -->
+      <div class="gsap-fade grid grid-cols-4 gap-[2px]">
+        <div class="col-span-4 space-y-2">
+          <h3 class="h5">Index</h3>
+          <ClientOnly>
+            <swiper-container ref="swiperindexRef" class="w-full overflow-visible">
+              <swiper-slide class="!w-fit"><img src="/effect-one/1.jpg" class="w-auto max-h-[160px] h-full"/></swiper-slide>
+              <swiper-slide class="!w-fit"><img src="/effect-one/2.jpg" class="w-auto max-h-[160px] h-full"/></swiper-slide>
+              <swiper-slide class="!w-fit"><img src="/effect-one/3.jpg" class="w-auto max-h-[160px] h-full"/></swiper-slide>
+              <swiper-slide class="!w-fit"><img src="/effect-one/4.jpg" class="w-auto max-h-[160px] h-full"/></swiper-slide>
+              <swiper-slide class="!w-fit"><img src="/effect-one/5.jpg" class="w-auto max-h-[160px] h-full"/></swiper-slide>
+              <swiper-slide class="!w-fit"><img src="/effect-one/6.jpg" class="w-auto max-h-[160px] h-full"/></swiper-slide>
+              <swiper-slide class="!w-fit"><img src="/effect-one/7.jpg" class="w-auto max-h-[160px] h-full"/></swiper-slide>
+              <swiper-slide class="!w-fit"><img src="/effect-one/8.jpg" class="w-auto max-h-[160px] h-full"/></swiper-slide>
+              <swiper-slide class="!w-fit"><img src="/effect-one/9.jpg" class="w-auto max-h-[160px] h-full"/></swiper-slide>
+              <swiper-slide class="!w-fit"><img src="/effect-one/10.jpg" class="w-auto max-h-[160px] h-full"/></swiper-slide>
+            </swiper-container>
+          </ClientOnly>
+        </div>
+      </div>
+        
+
       
+      <!-- Project Footer content -->
       <div class="gsap-fade grid grid-cols-4 gap-[2px]">
         <div class="lg:col-span-2 lg:col-start-2 col-span-4 space-y-2">
           <h3 class="h5">{{ work?.title }}</h3>

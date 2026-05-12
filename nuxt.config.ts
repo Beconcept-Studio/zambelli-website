@@ -51,7 +51,7 @@ export default defineNuxtConfig({
     },
   },
   
-  modules: ['@nuxtjs/tailwindcss', '@nuxtjs/google-fonts' , 'nuxt-locomotive-scroll'],
+  modules: ['@nuxtjs/tailwindcss', '@nuxtjs/google-fonts' , 'nuxt-locomotive-scroll' , 'nuxt-swiper'],
   css: ['~/assets/scss/main.scss'],
   vite: {
     css: {
