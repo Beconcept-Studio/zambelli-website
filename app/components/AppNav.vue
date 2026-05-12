@@ -36,6 +36,11 @@
     }) || null
     }
 
+    const isLinkActive = (link: { to: string }) => {
+    if (link.to === '/') return route.path === '/'
+    return route.path.startsWith(link.to)
+    }
+
     const moveSelectorHover = (el: HTMLElement) => {
         const nav = headerEl.value
         const selector = dynamicSelector.value
@@ -128,12 +133,12 @@
         v-for="link in links"
         :key="link.to"
         :data-to="link.to"
-        exactActiveClass='text-white'
         :class="[
             link.to === '/'
             ? 'aspect-square p-3'
             : 'px-2 py-1 h-8',
-            'flex items-center justify-center relative z-10 leading-none hover:text-white transition-colors duration-300'
+            'flex items-center justify-center relative z-10 leading-none hover:text-white transition-colors duration-300',
+            isLinkActive(link) ? 'text-white' : ''
         ]"
         :to="link.to"
         @mouseenter="onMouseEnter"

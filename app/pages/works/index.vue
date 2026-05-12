@@ -38,6 +38,7 @@ const onWorkClick = (event: MouseEvent, work: typeof works[0]) => {
           :to="`/works/${work.id}`"
           v-for="work in works"
           :key="work.id"
+          :data-to="work.id"
           class="media w-[25vw] aspect-square select-none cursor-pointer space-y-2"
           style="will-change: transform;"
           @click="onWorkClick($event, work)"
@@ -61,6 +62,7 @@ const onWorkClick = (event: MouseEvent, work: typeof works[0]) => {
           v-for="work in works"
           :key="work.id"
           :to="`/works/${work.id}`"
+          :data-to="work.id"
           class="media w-[25vw] aspect-square space-y-2 select-none"
           @click="onWorkClick($event, work)"
         >
