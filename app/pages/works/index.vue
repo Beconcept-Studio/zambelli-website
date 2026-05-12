@@ -7,7 +7,7 @@ const { pause, isDragging } = useWorksAnimation({ rootSelector: '.zambelli-galle
 const router = useRouter()
 
 const works = [
-  { id: 1,  image: '/effect-one/1.jpg',  title: 'Forma Urbana',       slug: 'forma-urbana' },
+  { id: 1,  image: '/effect-one/fila.jpg',  title: 'Flia',       slug: 'flia' },
   { id: 2,  image: '/effect-one/2.jpg',  title: 'Lago Silenzio',      slug: 'lago-silenzio' },
   { id: 3,  image: '/effect-one/3.jpg',  title: 'Architettura Viva',  slug: 'architettura-viva' },
   { id: 4,  image: '/effect-one/4.jpg',  title: 'Margine Sottile',    slug: 'margine-sottile' },

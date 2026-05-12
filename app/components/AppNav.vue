@@ -135,8 +135,8 @@
         :data-to="link.to"
         :class="[
             link.to === '/'
-            ? 'aspect-square p-3'
-            : 'px-2 py-1 h-8',
+            ? 'aspect-square p-2'
+            : 'px-2',
             'flex items-center justify-center relative z-10 leading-none hover:text-white transition-colors duration-300',
             isLinkActive(link) ? 'text-white' : ''
         ]"
