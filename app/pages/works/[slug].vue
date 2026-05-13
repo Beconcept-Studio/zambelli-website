@@ -29,6 +29,11 @@
     speed: 1000,
     grabCursor: true,
   })
+  const { data: project } = await useFetch(
+    `/api/projects/${route.params.slug}`,
+    { key: `project-${route.params.slug}` }
+  )
+  // console.log('project', project)
 
 </script>
 <template>
