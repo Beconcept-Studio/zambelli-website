@@ -3,56 +3,65 @@ definePageMeta({ layout: 'default' })
 import gsap from 'gsap'
 import { useWorksAnimation } from '@/composables/useWorksAnimation'
 
+// Import progetti da strapi
+interface Immagine {
+  url: string;
+  alternativeText: string | null;
+  width: number;
+  height: number;
+}
+interface Project {
+  id: number;
+  documentId: string;
+  titolo_progetto: string;
+  immagine_principale: Immagine;
+}
+
+const config = useRuntimeConfig();
+const { data: projects, error } = await useFetch<{ data: Project[] }>(
+  `${config.public.strapiUrl}/projects`,
+  {
+    query: { populate: 'immagine_principale' },
+    headers: {
+      Authorization: `Bearer ${config.strapiToken}`,
+    },
+  }
+);
+
 const { pause, isDragging } = useWorksAnimation({ rootSelector: '.zambelli-gallery-works' })
 const router = useRouter()
-
-const works = [
-  { id: 1,  image: '/effect-one/fila.jpg',  title: 'Flia',       slug: 'flia' },
-  { id: 2,  image: '/effect-one/2.jpg',  title: 'Lago Silenzio',      slug: 'lago-silenzio' },
-  { id: 3,  image: '/effect-one/3.jpg',  title: 'Altro Progetto',  slug: 'altro-progetto' },
-  { id: 4,  image: '/effect-one/4.jpg',  title: 'Margine Sottile',    slug: 'margine-sottile' },
-  { id: 5,  image: '/effect-one/5.jpg',  title: 'Materia Grezza',     slug: 'materia-grezza' },
-  { id: 6,  image: '/effect-one/6.jpg',  title: 'Vuoto Abissale',     slug: 'vuoto-abissale' },
-  { id: 7,  image: '/effect-one/7.jpg',  title: 'Luce Diffusa',       slug: 'luce-diffusa' },
-  { id: 8,  image: '/effect-one/8.jpg',  title: 'Struttura Aperta',   slug: 'struttura-aperta' },
-  { id: 9,  image: '/effect-one/9.jpg',  title: 'Campo Visivo',       slug: 'campo-visivo' },
-  { id: 10, image: '/effect-one/10.jpg', title: 'Tensione Cromatica', slug: 'tensione-cromatica' },
-  { id: 11,  image: '/effect-one/5.jpg',  title: 'Nuovo Progetto',     slug: 'nuovo-progetto' },
-  { id: 12,  image: '/effect-one/3.jpg',  title: 'Architettura Viva',  slug: 'architettura-viva' },
-]
-
 const loadedIds = reactive(new Set<number>())
 const onImageLoad = (id: number) => loadedIds.add(id)
-
-const onWorkClick = (event: MouseEvent, work: typeof works[0]) => {
+const onProjClick = (event: MouseEvent, project: typeof projects[0]) => {
   if (isDragging.value) return        // drag → non navigare
-  router.push(`/works/${work.slug}`)    // click pulito → naviga
+  router.push(`/works/${slugify(project.titolo_progetto)}`)    // click pulito → naviga
 }
 </script>
 
 <template>
+
   <section class="page-wrapper zambelli-gallery-works overflow-hidden h-[100dvh] overscroll-none">
     <div class="container grid grid-cols-[repeat(2,1fr)] w-max will-change-transform">
 
       <!-- Primo .content: cliccabile -->
       <div class="content grid w-max grid-cols-[repeat(4,1fr)] gap-[5vw] p-[5vw]">
         <NuxtLink
-          :to="`/works/${work.id}`"
-          v-for="work in works"
-          :key="work.id"
-          :data-to="work.id"
+          v-for="project in projects?.data"
+          :key="project.id"
+          :data-to="project.id"
           class="media w-[25vw] aspect-square select-none cursor-pointer space-y-2"
           style="will-change: transform;"
-          @click="onWorkClick($event, work)"
+          @click="onProjClick($event, project)"
         >
           <div class="w-full h-full relative overflow-hidden flex items-center justify-center">
             <img
+              v-if="project.immagine_principale"
               class="max-h-full max-w-full transition-opacity duration-500"
-              :src="work.image"
-              :alt="work.title"
+              :src="`${project.immagine_principale.url}`"
+              :alt="project.immagine_principale.alternativeText ?? project.titolo_progetto"
             />
           </div>
-          <div class="text-center opacity-60 text-sm">{{ work.title }}</div>
+          <div class="text-center opacity-60 text-sm">{{ project.titolo_progetto }}</div>
         </NuxtLink>
       </div>
 
@@ -61,21 +70,21 @@ const onWorkClick = (event: MouseEvent, work: typeof works[0]) => {
         class="content grid w-max grid-cols-[repeat(4,1fr)] gap-[5vw] p-[5vw]"
       >
         <div
-          v-for="work in works"
-          :key="work.id"
-          :to="`/works/${work.id}`"
-          :data-to="work.id"
+          v-for="project in projects?.data"
+          :key="project.id"
+          :data-to="project.id"
           class="media w-[25vw] aspect-square space-y-2 select-none"
-          @click="onWorkClick($event, work)"
+          @click="onProjClick($event, project)"
         >
           <div class="w-full h-full relative overflow-hidden flex items-center justify-center">
             <img
+              v-if="project.immagine_principale"
               class="max-h-full max-w-full transition-opacity duration-500" 
-              :src="work.image"
-              :alt="work.title"
+              :src="`${project.immagine_principale.url}`"
+              :alt="project.immagine_principale.alternativeText ?? project.titolo_progetto"
             />
           </div>
-          <div class="text-center opacity-60 text-sm">{{ work.title }}</div>
+          <div class="text-center opacity-60 text-sm">{{ project.titolo_progetto }}</div>
         </div>
       </NuxtLink>
 
