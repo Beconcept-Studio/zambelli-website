@@ -1,23 +1,13 @@
 <script setup lang="ts">
   import OpenIcon from '@/assets/svg/open.svg'
   import CloseIcon from '@/assets/svg/close.svg'
+  import { marked } from 'marked'
+  marked.setOptions({ breaks: true })
   definePageMeta({ 
       layout: 'default',
   })
   const route = useRoute()
-  const works = [
-    { id: 1,  image: '/effect-one/fila.jpg',  title: 'Flia',       slug: 'flia' },
-    { id: 2,  image: '/effect-one/2.jpg',  title: 'Lago Silenzio',      slug: 'lago-silenzio' },
-    { id: 3,  image: '/effect-one/3.jpg',  title: 'Architettura Viva',  slug: 'architettura-viva' },
-    { id: 4,  image: '/effect-one/4.jpg',  title: 'Margine Sottile',    slug: 'margine-sottile' },
-    { id: 5,  image: '/effect-one/5.jpg',  title: 'Materia Grezza',     slug: 'materia-grezza' },
-    { id: 6,  image: '/effect-one/6.jpg',  title: 'Vuoto Abissale',     slug: 'vuoto-abissale' },
-    { id: 7,  image: '/effect-one/7.jpg',  title: 'Luce Diffusa',       slug: 'luce-diffusa' },
-    { id: 8,  image: '/effect-one/8.jpg',  title: 'Struttura Aperta',   slug: 'struttura-aperta' },
-    { id: 9,  image: '/effect-one/9.jpg',  title: 'Campo Visivo',       slug: 'campo-visivo' },
-    { id: 10, image: '/effect-one/10.jpg', title: 'Tensione Cromatica', slug: 'tensione-cromatica' },
-  ]
-  const work = computed(() => works.find(w => w.slug === String(route.params.slug)))
+  
   import { useGsapCommon } from '@/composables/useGsapCommon'
   useGsapCommon()
 
@@ -29,31 +19,60 @@
     speed: 1000,
     grabCursor: true,
   })
-  const { data: project } = await useFetch(
+  
+  // Import progetti da strapi
+  interface Immagine {
+    url: string;
+    alternativeText: string | null;
+    width: number;
+    height: number;
+  }
+  interface CurrProject {
+    id: number
+    documentId: string
+    titolo_progetto: string
+    tipo_progetto: string
+    anno_progetto: string
+    commissionario_progetto: string
+    slug: string
+    immagine_principale: Immagine
+    info_progetto: string
+  }
+  const { data: project } = await useFetch<CurrProject>(
     `/api/projects/${route.params.slug}`,
     { key: `project-${route.params.slug}` }
   )
-  // console.log('project', project)
 
+  const renderedFoorerInfo = computed(() =>
+    project.value?.info_progetto ? marked.parse(project.value.info_progetto) : ''
+  )
+  
 </script>
 <template>
   <main class="page-wrapper min-h-[100dvh]">
     <div class="w-screen h-screen flex items-center div--container justify-center">
       <div class="hero w-full flex-col gap-5 aspect-[2/.65] flex items-center justify-center">
         <img
-          ref="heroRef"
-          :src="work?.image"
-          :alt="work?.title"
-          class="max-h-full max-w-full h-full w-auto "
+          v-if="project?.immagine_principale"
+          :src="project.immagine_principale.url"
+          :alt="project.titolo_progetto"
+          class="max-h-full max-w-full h-full w-auto"
         />
         <div class="space-y-1 text-center">
-          <h1 class="h4">{{ work?.title }}</h1>
+          <h1 v-if="project?.titolo_progetto" class="h4">{{ project?.titolo_progetto }}</h1>
           <div class="flex gap-1 text-sm text-black/60">
-            <span>Product</span>  
-            <span>/</span>
-            <span>Luceplan</span>
-            <span>/</span>
-            <span>2022</span>
+            <span v-if="project?.tipo_progetto" class="group flex gap-1">
+              <span>{{project?.tipo_progetto}}</span>
+              <span class="group-last:hidden">/</span>
+            </span>  
+            <span v-if="project?.commissionario_progetto" class="group flex gap-1">
+              <span>{{project?.commissionario_progetto}}</span>
+              <span class="group-last:hidden">/</span>
+            </span>  
+            <span v-if="project?.anno_progetto" class="group flex gap-1">
+              <span>{{project?.anno_progetto}}</span>
+              <span class="group-last:hidden">/</span>
+            </span>  
           </div>
         </div>
       </div>
@@ -61,7 +80,7 @@
 
     <div ref="contentRef" class="div--container-proj verticalspaceproj space-bottom-double">
       <!-- Blocco: Citazione centrale -->
-      <div class="gsap-fade grid grid-cols-4 gap-[2px]">
+      <!-- <div class="gsap-fade grid grid-cols-4 gap-[2px]">
         <div class="lg:col-span-2 lg:col-start-2 col-span-4 relative">
           <div class="absolute top-0 -left-14">
             <OpenIcon class="w-8 h-8" />
@@ -74,26 +93,26 @@
             <CloseIcon class="w-8 h-8" />
           </div>
         </div>
-      </div>
+      </div> -->
       
       <!-- Blocco: Immagine boxata -->
-       <div class="gsap-fade grid grid-cols-4 gap-[2px]">
+      <!-- <div class="gsap-fade grid grid-cols-4 gap-[2px]">
         <div class="lg:col-span-2 lg:col-start-2 col-span-4 space-y-2">
           <img src="/effect-one/1.jpg" class="w-full"/>
           <div class="text-sm">Immagine boxata</div>
         </div>
-      </div>
+      </div> -->
       
       <!-- Blocco: Immagine full -->
-       <div class="gsap-fade grid grid-cols-4 gap-[2px]">
+      <!-- <div class="gsap-fade grid grid-cols-4 gap-[2px]">
         <div class="col-span-4 space-y-2">
           <img src="/effect-one/full.jpg" class="w-full"/>
           <div class="text-sm">Immagine fullsize</div>
         </div>
-      </div>
+      </div> -->
 
       <!-- Blocco: Contenuto testuale -->
-      <div class="gsap-fade grid grid-cols-4 gap-[2px]">
+      <!-- <div class="gsap-fade grid grid-cols-4 gap-[2px]">
         <div class="lg:col-span-2 lg:col-start-2 col-span-4 relative space-y-8">
           <div class="text-big">E una volta fuori, doveva avere un senso. Skyne è un profilo in alluminio che fa due cose insieme: illumina e porta corrente. Un sistema LED lineare a bassa tensione che si combina con prese e interruttori standard. Si monta a parete, a soffitto, a pavimento, sospeso. La luce si può orientare, diretta o riflessa. Ogni modulo si connette al successivo, ognuno con la sua angolazione. Funziona dentro e fuori, con la stessa logica, lo stesso linguaggio.</div>
           <div class="text-large">E una volta fuori, doveva avere un senso. Skyne è un profilo in alluminio che fa due cose insieme: illumina e porta corrente. Un sistema LED lineare a bassa tensione che si combina con prese e interruttori standard. Si monta a parete, a soffitto, a pavimento, sospeso. La luce si può orientare, diretta o riflessa. Ogni modulo si connette al successivo, ognuno con la sua angolazione. Funziona dentro e fuori, con la stessa logica, lo stesso linguaggio.</div>
@@ -107,10 +126,10 @@
             <span>Scopri di più</span>
           </NuxtLink>
         </div>
-      </div>
+      </div> -->
 
       <!-- Blocco: Immagini con allineamento top -->
-       <div class="gsap-fade grid grid-cols-4 gap-10">
+      <!-- <div class="gsap-fade grid grid-cols-4 gap-10">
         <div class="lg:col-span-2 col-span-4 space-y-2 self-start">
           <img src="/effect-one/9.jpg" class="w-full"/>
           <div class="text-sm">Immagine boxata</div>
@@ -119,10 +138,10 @@
           <img src="/effect-one/2.jpg" class="w-full"/>
           <div class="text-sm">Immagine boxata</div>
         </div>
-      </div>
+      </div> -->
       
       <!-- Blocco: Immagini con allineamento middle -->
-       <div class="gsap-fade grid grid-cols-4 gap-10">
+      <!-- <div class="gsap-fade grid grid-cols-4 gap-10">
         <div class="lg:col-span-2 col-span-4 space-y-2 self-center">
           <img src="/effect-one/4.jpg" class="w-full"/>
           <div class="text-sm">Immagine boxata</div>
@@ -131,10 +150,10 @@
           <img src="/effect-one/7.jpg" class="w-full"/>
           <div class="text-sm">Immagine boxata</div>
         </div>
-      </div>
+      </div> -->
       
       <!-- Blocco: Immagini con allineamento bottom -->
-       <div class="gsap-fade grid grid-cols-4 gap-10">
+      <!-- <div class="gsap-fade grid grid-cols-4 gap-10">
         <div class="lg:col-span-2 col-span-4 space-y-2 self-end">
           <img src="/effect-one/6.jpg" class="w-full"/>
           <div class="text-sm">Immagine boxata</div>
@@ -143,10 +162,10 @@
           <img src="/effect-one/8.jpg" class="w-full"/>
           <div class="text-sm">Immagine boxata</div>
         </div>
-      </div>
+      </div> -->
 
       <!-- Blocco: Immagine e contenuto -->
-       <div class="gsap-fade grid grid-cols-4 gap-10">
+      <!-- <div class="gsap-fade grid grid-cols-4 gap-10">
         <div class="lg:col-span-2 col-span-4">
           <img src="/effect-one/5.jpg" class="w-full"/>
         </div>
@@ -174,26 +193,26 @@
           <div class="text-basic">Lorem ipsum dolor sit amet.<br/>Ea nostrum laudantium est rerum optio ea velit dolorem est sint voluptate? Hic quas explicabo qui eveniet ullam quo impedit modi et similique dicta? Ex tenetur ipsa et voluptas voluptatem et odio facere aut unde veritatis.</div>
 
         </div>
-      </div>
+      </div> -->
       
       <!-- Blocco: Immagine 1/2 a sinistra -->
-       <div class="gsap-fade grid grid-cols-4 gap-[2px]">
+      <!-- <div class="gsap-fade grid grid-cols-4 gap-[2px]">
         <div class="lg:col-span-2 col-span-4 space-y-2">
           <img src="/effect-one/2.jpg" class="w-full"/>
           <div class="text-sm">Immagine boxata</div>
         </div>
-      </div>
+      </div> -->
       
       <!-- Blocco: Immagine 1/2 a destra -->
-       <div class="gsap-fade grid grid-cols-4 gap-[2px]">
+       <!-- <div class="gsap-fade grid grid-cols-4 gap-[2px]">
         <div class="lg:col-span-2 lg:col-start-3 col-span-4 space-y-2">
           <img src="/effect-one/3.jpg" class="w-full"/>
           <div class="text-sm">Immagine boxata</div>
         </div>
-      </div>
+      </div> -->
 
       <!-- Swiper index -->
-      <div class="gsap-fade grid grid-cols-4 gap-[2px]">
+      <!-- <div class="gsap-fade grid grid-cols-4 gap-[2px]">
         <div class="col-span-4 space-y-2">
           <h3 class="h5">Index</h3>
           <ClientOnly>
@@ -211,26 +230,19 @@
             </swiper-container>
           </ClientOnly>
         </div>
-      </div>
+      </div> -->
         
 
       
-      <!-- Project Footer content -->
-      <div class="gsap-fade grid grid-cols-4 gap-[2px]">
+      
+      <div
+        v-if="renderedFoorerInfo"
+        class="gsap-fade grid grid-cols-4 gap-[2px]">
         <div class="lg:col-span-2 lg:col-start-2 col-span-4 space-y-2">
-          <h3 class="h5">{{ work?.title }}</h3>
-          <div class="styled-content">
-            <div>Made in 2022</div>
-            <div>Commissioned by <NuxtLink target="_blank" to="#">Luceplan</NuxtLink></div>
-          </div>
-          <div class="styled-content">
-            <div>Photo credits: <NuxtLink target="_blank" to="#">Marco Rossi</NuxtLink>, Achille Morandi, Francesca Taglioli</div>
-          </div>
+          <h3 class="h5">{{ project?.titolo_progetto }}</h3>
+          <div class="styled-content" v-html="renderedFoorerInfo" />
         </div>
       </div>
-      
-      
-      
     </div>
   </main>
 </template>

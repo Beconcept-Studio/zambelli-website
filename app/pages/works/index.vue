@@ -12,6 +12,7 @@ interface Immagine {
 }
 interface Project {
   id: number;
+  slug: string;
   documentId: string;
   titolo_progetto: string;
   immagine_principale: Immagine;
@@ -25,7 +26,7 @@ const loadedIds = reactive(new Set<number>())
 const onImageLoad = (id: number) => loadedIds.add(id)
 const onProjClick = (event: MouseEvent, project: Project) => {
   if (isDragging.value) return        // drag → non navigare
-  router.push(`/works/${slugify(project.titolo_progetto)}`)    // click pulito → naviga
+  router.push(`/works/${project.slug}`)    // click pulito → naviga
 }
 </script>
 
