@@ -17,22 +17,13 @@ interface Project {
   immagine_principale: Immagine;
 }
 
-const config = useRuntimeConfig();
-const { data: projects, error } = await useFetch<{ data: Project[] }>(
-  `${config.public.strapiUrl}/projects`,
-  {
-    query: { populate: 'immagine_principale' },
-    headers: {
-      Authorization: `Bearer ${config.strapiToken}`,
-    },
-  }
-);
+const { data: projects } = await useFetch<Project[]>('/api/projects')
 
 const { pause, isDragging } = useWorksAnimation({ rootSelector: '.zambelli-gallery-works' })
 const router = useRouter()
 const loadedIds = reactive(new Set<number>())
 const onImageLoad = (id: number) => loadedIds.add(id)
-const onProjClick = (event: MouseEvent, project: typeof projects[0]) => {
+const onProjClick = (event: MouseEvent, project: Project) => {
   if (isDragging.value) return        // drag → non navigare
   router.push(`/works/${slugify(project.titolo_progetto)}`)    // click pulito → naviga
 }
@@ -46,7 +37,7 @@ const onProjClick = (event: MouseEvent, project: typeof projects[0]) => {
       <!-- Primo .content: cliccabile -->
       <div class="content grid w-max grid-cols-[repeat(4,1fr)] gap-[5vw] p-[5vw]">
         <NuxtLink
-          v-for="project in projects?.data"
+          v-for="project in projects"
           :key="project.id"
           :data-to="project.id"
           class="media w-[25vw] aspect-square select-none cursor-pointer space-y-2"
@@ -70,7 +61,7 @@ const onProjClick = (event: MouseEvent, project: typeof projects[0]) => {
         class="content grid w-max grid-cols-[repeat(4,1fr)] gap-[5vw] p-[5vw]"
       >
         <div
-          v-for="project in projects?.data"
+          v-for="project in projects"
           :key="project.id"
           :data-to="project.id"
           class="media w-[25vw] aspect-square space-y-2 select-none"
