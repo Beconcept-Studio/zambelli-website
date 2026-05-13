@@ -29,31 +29,39 @@ export function useWorksAnimation({ rootSelector }: UseWorksAnimationOptions) {
   onMounted(async () => {
     await nextTick()
 
-    root = document.querySelector(rootSelector)
-    if (!root) return
+  root = document.querySelector(rootSelector)
+  if (!root) return
 
-    container = root.querySelector('.container') as HTMLElement
-    const content = container.querySelector('.content') as HTMLElement
+  container = root.querySelector('.container') as HTMLElement
+  const content = container.querySelector('.content') as HTMLElement
 
-    const contentWidth = content.clientWidth
-    const wrapX = gsap.utils.wrap(-contentWidth, 0)
-    const xTo = gsap.quickTo(container, 'x', {
-      duration: 1.5,
-      ease: 'power4',
-      modifiers: { x: gsap.utils.unitize(wrapX) },
-    })
+  // ✅ Attendi che il browser abbia effettivamente calcolato il layout
+  await new Promise<void>(r => requestAnimationFrame(() => requestAnimationFrame(() => r())))
 
-    const contentHeight = content.clientHeight
-    const wrapY = gsap.utils.wrap(-contentHeight, 0)
-    const yTo = gsap.quickTo(container, 'y', {
-      duration: 1.5,
-      ease: 'power4',
-      modifiers: { y: gsap.utils.unitize(wrapY) },
-    })
+  const contentWidth = content.clientWidth
+  const contentHeight = content.clientHeight
 
-    let incrX = (window.innerWidth - contentWidth) / 2
-    let incrY = (window.innerHeight - contentHeight) / 2
-    gsap.set(container, { x: incrX, y: incrY })
+  const wrapX = gsap.utils.wrap(-contentWidth, 0)
+  const wrapY = gsap.utils.wrap(-contentHeight, 0)
+
+  const xTo = gsap.quickTo(container, 'x', {
+    duration: 1.5,
+    ease: 'power4',
+    modifiers: { x: gsap.utils.unitize(wrapX) },
+  })
+
+  const yTo = gsap.quickTo(container, 'y', {
+    duration: 1.5,
+    ease: 'power4',
+    modifiers: { y: gsap.utils.unitize(wrapY) },
+  })
+
+  // ✅ Normalizza subito i valori nell'intervallo del wrap
+  // così xTo/yTo non jumpano alla prima interazione
+  let incrX = wrapX((window.innerWidth  - contentWidth)  / 2)
+  let incrY = wrapY((window.innerHeight - contentHeight) / 2)
+
+  gsap.set(container, { x: incrX, y: incrY })
 
     observer = Observer.create({
       target: root,

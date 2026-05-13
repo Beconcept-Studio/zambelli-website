@@ -9,7 +9,7 @@ const router = useRouter()
 const works = [
   { id: 1,  image: '/effect-one/fila.jpg',  title: 'Flia',       slug: 'flia' },
   { id: 2,  image: '/effect-one/2.jpg',  title: 'Lago Silenzio',      slug: 'lago-silenzio' },
-  { id: 3,  image: '/effect-one/3.jpg',  title: 'Architettura Viva',  slug: 'architettura-viva' },
+  { id: 3,  image: '/effect-one/3.jpg',  title: 'Altro Progetto',  slug: 'altro-progetto' },
   { id: 4,  image: '/effect-one/4.jpg',  title: 'Margine Sottile',    slug: 'margine-sottile' },
   { id: 5,  image: '/effect-one/5.jpg',  title: 'Materia Grezza',     slug: 'materia-grezza' },
   { id: 6,  image: '/effect-one/6.jpg',  title: 'Vuoto Abissale',     slug: 'vuoto-abissale' },
@@ -17,6 +17,8 @@ const works = [
   { id: 8,  image: '/effect-one/8.jpg',  title: 'Struttura Aperta',   slug: 'struttura-aperta' },
   { id: 9,  image: '/effect-one/9.jpg',  title: 'Campo Visivo',       slug: 'campo-visivo' },
   { id: 10, image: '/effect-one/10.jpg', title: 'Tensione Cromatica', slug: 'tensione-cromatica' },
+  { id: 11,  image: '/effect-one/5.jpg',  title: 'Nuovo Progetto',     slug: 'nuovo-progetto' },
+  { id: 12,  image: '/effect-one/3.jpg',  title: 'Architettura Viva',  slug: 'architettura-viva' },
 ]
 
 const loadedIds = reactive(new Set<number>())
@@ -33,7 +35,7 @@ const onWorkClick = (event: MouseEvent, work: typeof works[0]) => {
     <div class="container grid grid-cols-[repeat(2,1fr)] w-max will-change-transform">
 
       <!-- Primo .content: cliccabile -->
-      <div class="content grid w-max grid-cols-[repeat(5,1fr)] gap-[5vw] p-[5vw]">
+      <div class="content grid w-max grid-cols-[repeat(4,1fr)] gap-[5vw] p-[5vw]">
         <NuxtLink
           :to="`/works/${work.id}`"
           v-for="work in works"
@@ -56,7 +58,7 @@ const onWorkClick = (event: MouseEvent, work: typeof works[0]) => {
 
       <NuxtLink
         v-for="_ in 3"
-        class="content grid w-max grid-cols-[repeat(5,1fr)] gap-[5vw] p-[5vw]"
+        class="content grid w-max grid-cols-[repeat(4,1fr)] gap-[5vw] p-[5vw]"
       >
         <div
           v-for="work in works"
