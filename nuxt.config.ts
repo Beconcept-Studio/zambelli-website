@@ -38,7 +38,7 @@ export default defineNuxtConfig({
   app: {
     pageTransition: { name: 'page', mode: 'out-in' },
     head: {
-      title: 'Alessandro Zambelli – Dove la materia incontra l\'anima', // default fallback title
+      title: 'Alessandro Zambelli - Dove la materia incontra l\'anima', // default fallback title
       htmlAttrs: {
         lang: 'it',
       },
@@ -47,6 +47,9 @@ export default defineNuxtConfig({
       ],
       link: [
         { rel: 'icon', type: 'image/x-icon', href: '/img/zambelli-fav.png' },
+        { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
+        { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' },
+        { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200' }
       ],
     },
   },
@@ -57,7 +60,7 @@ export default defineNuxtConfig({
     css: {
       preprocessorOptions: {
         scss: {
-          //additionalData: '@use "~/assets/scss/_variables.scss" as *;',
+          silenceDeprecations: ['import', 'global-builtin']
         },
       },
     },
@@ -67,15 +70,13 @@ export default defineNuxtConfig({
         '@vue/devtools-kit',
         'gsap',
         'gsap/ScrollTrigger',
+        'gsap/SplitText',
+        'gsap/Observer',
+        'marked',
       ]
     },
     plugins: [require('vite-svg-loader')()]
   },
-  googleFonts: {
-    families: {
-      Roboto: true,
-    }
-  }
 })
 
 async function fetchStrapiRoutes() {

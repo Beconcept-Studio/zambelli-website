@@ -1,3 +1,4 @@
+// @import 'material-symbols/outlined';
 @font-face {
   font-family: "HelveticaNow";
   src: 
@@ -70,6 +71,35 @@
   font-style: italic;
   font-display: swap;
 }
+
+@font-face {
+  font-family: 'Material Symbols Outlined';
+  font-style: normal;
+  font-weight: 100 700;
+  font-display: block;
+  src: url('/fonts/material-symbols-outlined.woff2') format('woff2');
+}
+:root{
+  --icon-fill: 1;
+  --icon-weight: 200;
+  --icon-font-size: 18px;
+}
+.material-symbols-outlined {
+  font-family: 'Material Symbols Outlined';
+  font-style: normal;
+  font-size: var(--icon-font-size);
+  font-weight: var(--icon-weight);
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  direction: ltr;
+  font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+  font-variation-settings: 'FILL' 0, 'opsz' 24, 'GRAD' 0;
+}
+
 
 mark{
   @apply bg-black text-white px-1;
@@ -178,7 +208,7 @@ p + p , ul + p , p + ul, ol + p , p + ol{
 }
 
 .text-extra{
-  @apply font-semibold text-[28px] leading-[140%];
+  @apply font-semibold text-[28px] leading-[120%];
 }
 .text-big{
   @apply font-semibold text-[20px] leading-[140%];
@@ -213,6 +243,12 @@ p + p , ul + p , p + ul, ol + p , p + ol{
 .btn-icon{
   @apply w-fit py-1 hover:opacity-40 font-medium border-b border-solid border-current duration-500 outline-none focus:outline-none flex items-center h-fit justify-center cursor-pointer gap-2;
   text-decoration: none !important;
+  &.btn-outline-white{
+    @apply text-white hover:opacity-60;
+  }
+  &.btn-outline-black{
+    @apply text-black hover:opacity-60;
+  }
 }
 
 .styled-content{
@@ -221,6 +257,12 @@ p + p , ul + p , p + ul, ol + p , p + ol{
   }
   a{
     @apply text-black underline underline-offset-2 decoration-[.75px];
+  }
+}
+
+.custom-mark-content{
+  strong, b{
+    @apply bg-black font-normal text-white px-1;
   }
 }
 
