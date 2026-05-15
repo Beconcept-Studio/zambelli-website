@@ -177,6 +177,7 @@
             ]"
           >
             <img
+              v-if="block.immagine_uno"
               :src="block.immagine_uno.url"
               :alt="block.immagine_uno.alternativeText ?? ''"
               :width="block.immagine_uno.width"
@@ -195,6 +196,7 @@
             ]"
           >
             <img
+              v-if="block.immagine_due"
               :src="block.immagine_due.url"
               :alt="block.immagine_due.alternativeText ?? ''"
               :width="block.immagine_due.width"
@@ -221,6 +223,7 @@
             ]"
           >
             <img
+              v-if="block.file"
               :src="block.file.url"
               :alt="block.file.alternativeText ?? ''"
               :width="block.file.width"
