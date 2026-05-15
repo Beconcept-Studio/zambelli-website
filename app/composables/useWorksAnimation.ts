@@ -1,25 +1,19 @@
-// composables/useWorksAnimation.ts
 import { onMounted, onUnmounted } from 'vue'
 
 interface UseWorksAnimationOptions {
   rootSelector: string
+  initialOffset?: () => { x: number; y: number }  // ← ora è una funzione, chiamata dopo il layout
 }
 
-export function useWorksAnimation({ rootSelector }: UseWorksAnimationOptions) {
+export function useWorksAnimation({ rootSelector, initialOffset }: UseWorksAnimationOptions) {
   const { $gsap: gsap, $Observer: Observer } = useNuxtApp()
-  
+
   let container: HTMLElement | null = null
   let root: HTMLElement | null = null
   let observer: ReturnType<typeof Observer.create> | null = null
 
-  // Flag per distinguere drag da click
   const isDragging = ref(false)
   let dragDistance = 0
-
-  // useHead({
-  //   htmlAttrs: { class: 'overflow-hidden h-[100dvh]' },
-  //   bodyAttrs: { class: 'overflow-hidden h-[100dvh]' },
-  // })
 
   onBeforeRouteLeave(() => {
     document.documentElement.classList.remove('overflow-hidden', 'h-[100dvh]')
@@ -29,45 +23,48 @@ export function useWorksAnimation({ rootSelector }: UseWorksAnimationOptions) {
   onMounted(async () => {
     await nextTick()
 
-  root = document.querySelector(rootSelector)
-  if (!root) return
+    root = document.querySelector(rootSelector)
+    if (!root) return
 
-  container = root.querySelector('.container') as HTMLElement
-  const content = container.querySelector('.content') as HTMLElement
+    container = root.querySelector('.container') as HTMLElement
+    const content = container.querySelector('.content') as HTMLElement
 
-  // ✅ Attendi che il browser abbia effettivamente calcolato il layout
-  await new Promise<void>(r => requestAnimationFrame(() => requestAnimationFrame(() => r())))
+    // Attendi layout reale
+    await new Promise<void>(r => requestAnimationFrame(() => requestAnimationFrame(() => r())))
 
-  const contentWidth = content.clientWidth
-  const contentHeight = content.clientHeight
+    const contentWidth = content.clientWidth
+    const contentHeight = content.clientHeight
 
-  const wrapX = gsap.utils.wrap(-contentWidth, 0)
-  const wrapY = gsap.utils.wrap(-contentHeight, 0)
+    const wrapX = gsap.utils.wrap(-contentWidth, 0)
+    const wrapY = gsap.utils.wrap(-contentHeight, 0)
 
-  const xTo = gsap.quickTo(container, 'x', {
-    duration: 1.5,
-    ease: 'power4',
-    modifiers: { x: gsap.utils.unitize(wrapX) },
-  })
+    const xTo = gsap.quickTo(container, 'x', {
+      duration: 1.5,
+      ease: 'power4',
+      modifiers: { x: gsap.utils.unitize(wrapX) },
+    })
 
-  const yTo = gsap.quickTo(container, 'y', {
-    duration: 1.5,
-    ease: 'power4',
-    modifiers: { y: gsap.utils.unitize(wrapY) },
-  })
+    const yTo = gsap.quickTo(container, 'y', {
+      duration: 1.5,
+      ease: 'power4',
+      modifiers: { y: gsap.utils.unitize(wrapY) },
+    })
 
-  // ✅ Normalizza subito i valori nell'intervallo del wrap
-  // così xTo/yTo non jumpano alla prima interazione
-  let incrX = wrapX((window.innerWidth  - contentWidth)  / 2)
-  let incrY = wrapY((window.innerHeight - contentHeight) / 2)
+    // Chiamiamo initialOffset QUI, dopo il double RAF, quando il DOM è stabile
+    const offset = initialOffset ? initialOffset() : null
 
-  gsap.set(container, { x: incrX, y: incrY })
+    const rawX = offset ? offset.x : (window.innerWidth  - contentWidth)  / 2
+    const rawY = offset ? offset.y : (window.innerHeight - contentHeight) / 2
+
+    let incrX = wrapX(rawX)
+    let incrY = wrapY(rawY)
+
+    gsap.set(container, { x: incrX, y: incrY })
 
     observer = Observer.create({
       target: root,
       type: 'wheel,touch,pointer',
 
-      // Resetta il drag ad ogni nuovo pointer down
       onPress: () => {
         dragDistance = 0
         isDragging.value = false
@@ -75,9 +72,7 @@ export function useWorksAnimation({ rootSelector }: UseWorksAnimationOptions) {
 
       onChangeX: (self) => {
         dragDistance += Math.abs(self.deltaX)
-        // Soglia: 6px di movimento = è un drag, non un click
         if (dragDistance > 6) isDragging.value = true
-
         incrX += self.event.type === 'wheel' ? -self.deltaX : self.deltaX * 2
         xTo(incrX)
       },
@@ -85,13 +80,10 @@ export function useWorksAnimation({ rootSelector }: UseWorksAnimationOptions) {
       onChangeY: (self) => {
         dragDistance += Math.abs(self.deltaY)
         if (dragDistance > 6) isDragging.value = true
-
         incrY += self.event.type === 'wheel' ? -self.deltaY : self.deltaY * 2
         yTo(incrY)
       },
 
-      // Reset al rilascio — ma con un tick di delay
-      // così il @click del .media può leggere isDragging prima del reset
       onRelease: () => {
         setTimeout(() => {
           isDragging.value = false
