@@ -85,19 +85,19 @@ export const useIntroAnimation = () => {
       tl.to(logoItem, {
         y: 0,
         autoAlpha: 1,
-        duration: 1.5,
+        duration: 1.25,
         ease: 'power4.inOut',
-      })
+      }, '>-=.5')
       tl.to(navItem, {
         y: 0,
         autoAlpha: 1,
-        duration: 1.5,
+        duration: 1.25,
         ease: 'power4.inOut',
       } , '<')
 
       .to(el, {
         autoAlpha: 0,
-        duration: 1,
+        duration: .1,
         ease: 'power2.in',
         onComplete: function () {
           el.remove();
