@@ -26,7 +26,7 @@ const [{ data: projects }, { data: worksPage }] = await Promise.all([
 ])
 
 // const PADDING_OPTIONS = ['8px', '16px', '24px', '32px']
-const PADDING_OPTIONS = ['0px' , '8px', '16px', '24px', '32px']
+const PADDING_OPTIONS = ['0px' , '24px', '48px']
 
 const orderedProjects = ref<(Project | null)[]>([])
 const gridPaddings = ref<string[]>([])
@@ -140,7 +140,7 @@ const onProjClick = (event: MouseEvent, project: Project) => {
 <template>
   <section class="page-wrapper zambelli-gallery-works overflow-hidden h-[100dvh] overscroll-none">
     <ClientOnly>
-      <div class="container grid grid-cols-[repeat(2,1fr)] w-max will-change-transform">
+      <div class="container grid gap-[4vw] grid-cols-[repeat(2,1fr)] w-max will-change-transform">
 
         <div class="content grid w-max lg:grid-cols-[repeat(4,1fr)] grid-cols-[repeat(2,1fr)] gap-[4vw]">
           <template

@@ -108,6 +108,7 @@
         if (!active) return
 
         moveSelectorActive(active)
+        moveSelectorHover(active)
     })
     })
 </script>
@@ -136,7 +137,7 @@
         :class="[
             link.to === '/'
             ? 'aspect-square p-2'
-            : 'px-2',
+            : 'px-2 py-1',
             'flex items-center justify-center relative z-10 leading-none hover:text-white transition-colors duration-300',
             isLinkActive(link) ? 'text-white' : ''
         ]"
