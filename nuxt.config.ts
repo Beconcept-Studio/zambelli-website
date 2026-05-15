@@ -19,8 +19,8 @@ export default defineNuxtConfig({
   hooks: {
     async 'nitro:config'(nitroConfig) {
       try {
-        const routes = await fetchStrapiRoutes()
-        console.log('Prerendering routes:', routes)
+        const articleRoutes = await fetchStrapiArticlesRoutes()
+        console.log('Prerendering routes:', articleRoutes)
 
         nitroConfig.prerender ??= {}
 
@@ -29,7 +29,14 @@ export default defineNuxtConfig({
           nitroConfig.prerender.routes = []
         }
 
-        nitroConfig.prerender.routes.push(...routes)
+        nitroConfig.prerender.routes.push(...articleRoutes)
+     
+        const projectRoutes = await fetchStrapiProjectsRoutes()
+        console.log('Prerendering routes:', projectRoutes)
+
+
+        nitroConfig.prerender.routes.push(...projectRoutes)
+        
       } catch (error) {
         console.error('Error fetching routes for prerendering:', error)
       }
@@ -79,7 +86,7 @@ export default defineNuxtConfig({
   },
 })
 
-async function fetchStrapiRoutes() {
+async function fetchStrapiArticlesRoutes() {
   const res = await fetch(`${process.env.STRAPI_URL}/articles?fields=slug`, {
     headers: {
       Authorization: `Bearer ${process.env.STRAPI_TOKEN}`,
@@ -88,5 +95,16 @@ async function fetchStrapiRoutes() {
   const { data } = await res.json()
   console.log('Fetched routes from Strapi:', data)
   return data.map((item: any) => `/articles/${item.slug}`)
+
+}
+async function fetchStrapiProjectsRoutes() {
+  const res = await fetch(`${process.env.STRAPI_URL}/projects?fields=slug`, {
+    headers: {
+      Authorization: `Bearer ${process.env.STRAPI_TOKEN}`,
+    },
+  })
+  const { data } = await res.json()
+  console.log('Fetched routes from Strapi:', data)
+  return data.map((item: any) => `/projects/${item.slug}`)
 
 }
