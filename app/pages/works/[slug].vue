@@ -60,7 +60,7 @@
     attiva_sezione: boolean
     posizione_media: 'left' | 'right'
     immagine: Immagine
-    contenuto: ContenutoBlock[]
+    testo: string
   }
 
   interface ComposerContenuto {
@@ -293,12 +293,11 @@
             ]"
           >
             
-            Contenuto dinamico
+            <MarkdownRenderCustom v-if="block.testo" :content="block.testo"></MarkdownRenderCustom>
             
           </div>
         </div>
       </div>
-      
       
       <div
         v-if="renderedFoorerInfo"
@@ -308,6 +307,7 @@
           <div class="styled-content" v-html="renderedFoorerInfo" />
         </div>
       </div>
+    
     </div>
   </main>
 </template>

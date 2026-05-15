@@ -207,6 +207,34 @@ p + p , ul + p , p + ul, ol + p , p + ol{
   @apply pt-4;
 }
 
+.styled-markdown{
+  @apply space-y-5;
+  h1 {
+    @apply font-helvetica font-bold lg:text-[80px] text-[64px] leading-[110%];
+  }
+  h2 {
+    @apply font-helvetica font-bold lg:text-[64px] text-[48px] leading-[110%];
+  }
+  h3 {
+    @apply font-helvetica font-bold lg:text-[56px] text-[40px] leading-[115%];
+  }
+  h3small {
+    @apply font-helvetica font-bold lg:text-[48px] text-[32px] leading-[115%];
+  }
+  h4 {
+    @apply font-helvetica font-semibold lg:text-[32px] text-[24px] leading-[130%];
+  }
+  h5 {
+    @apply font-helvetica font-semibold lg:text-[20px] text-[18px] leading-[150%];
+  }
+  h6 {
+    @apply font-helvetica font-semibold text-sm uppercase;
+  }
+  p + p , ul + p , p + ul, ol + p , p + ol{
+    @apply pt-4;
+  }
+}
+
 .text-extra{
   @apply font-semibold text-[28px] leading-[120%];
 }

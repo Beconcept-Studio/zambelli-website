@@ -34,8 +34,6 @@ const onProjClick = (event: MouseEvent, project: Project) => {
 
   <section class="page-wrapper zambelli-gallery-works overflow-hidden h-[100dvh] overscroll-none">
     <div class="container grid grid-cols-[repeat(2,1fr)] w-max will-change-transform">
-
-      <!-- Primo .content: cliccabile -->
       <div class="content grid w-max grid-cols-[repeat(4,1fr)] gap-[5vw] p-[5vw]">
         <NuxtLink
           v-for="project in projects"
@@ -56,7 +54,6 @@ const onProjClick = (event: MouseEvent, project: Project) => {
           <div class="text-center opacity-60 text-sm">{{ project.titolo_progetto }}</div>
         </NuxtLink>
       </div>
-
       <NuxtLink
         v-for="_ in 3"
         class="content grid w-max grid-cols-[repeat(4,1fr)] gap-[5vw] p-[5vw]"
@@ -65,7 +62,7 @@ const onProjClick = (event: MouseEvent, project: Project) => {
           v-for="project in projects"
           :key="project.id"
           :data-to="project.id"
-          class="media w-[25vw] aspect-square space-y-2 select-none"
+          class="media w-[25vw] aspect-square space-y-2 select-none cursor-pointer"
           @click="onProjClick($event, project)"
         >
           <div class="w-full h-full relative overflow-hidden flex items-center justify-center">
@@ -79,7 +76,6 @@ const onProjClick = (event: MouseEvent, project: Project) => {
           <div class="text-center opacity-60 text-sm">{{ project.titolo_progetto }}</div>
         </div>
       </NuxtLink>
-
     </div>
   </section>
 </template>
