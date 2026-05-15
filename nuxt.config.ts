@@ -36,7 +36,7 @@ export default defineNuxtConfig({
 
 
         nitroConfig.prerender.routes.push(...projectRoutes)
-        
+
       } catch (error) {
         console.error('Error fetching routes for prerendering:', error)
       }
@@ -105,6 +105,6 @@ async function fetchStrapiProjectsRoutes() {
   })
   const { data } = await res.json()
   console.log('Fetched routes from Strapi:', data)
-  return data.map((item: any) => `/projects/${item.slug}`)
+  return data.map((item: any) => `/works/${item.slug}`)
 
 }
