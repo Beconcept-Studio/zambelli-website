@@ -101,9 +101,10 @@
     info_progetto: string
     dynamic_body_progetto: DynamicBlock[]  // ← aggiungi questo
   }
+  const slug = computed(() => route.params.slug as string)
   const { data: project } = await useFetch<CurrProject>(
-    `/api/projects/${route.params.slug}`,
-    { key: `project-${route.params.slug}` }
+    () => `/api/projects/${slug.value}`,  // ← funzione reattiva
+    { key: `project-${slug.value}` }
   )
 
   const renderedFoorerInfo = computed(() =>
