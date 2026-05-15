@@ -32,8 +32,8 @@ export function useWorksAnimation({ rootSelector, initialOffset }: UseWorksAnima
     // Attendi layout reale
     await new Promise<void>(r => requestAnimationFrame(() => requestAnimationFrame(() => r())))
 
-    const contentWidth = content.clientWidth
-    const contentHeight = content.clientHeight
+    const contentWidth  = content.clientWidth  + parseFloat(getComputedStyle(container).columnGap)
+    const contentHeight = content.clientHeight + parseFloat(getComputedStyle(container).rowGap)
 
     const wrapX = gsap.utils.wrap(-contentWidth, 0)
     const wrapY = gsap.utils.wrap(-contentHeight, 0)
