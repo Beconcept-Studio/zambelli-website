@@ -179,7 +179,7 @@
       <div v-for="(block, i) in project?.dynamic_body_progetto" :key="i">
         <div
           v-if="block.__component === 'shared.citazione-centrata' && block.attiva_sezione"
-          class="component-citazione-centrata gsap-fade grid grid-cols-4 gap-[2px]"
+          class="component-citazione-centrata gsap-fade grid grid-cols-4 gap-24"
         >
           <div class="lg:col-span-2 lg:col-start-2 col-span-4 relative">
             <div v-if="block.attiva_icone" class="absolute top-0 -left-8">
@@ -266,7 +266,7 @@
         </div>
         <div
           v-else-if="block.__component === 'shared.video' && block.attiva_sezione"
-          class="component-video gsap-fade grid grid-cols-4 gap-[2px]"
+          class="component-video gsap-fade grid grid-cols-4 gap-24"
         >
           <div class="col-span-4 space-y-2">
 
@@ -319,7 +319,7 @@
         </div>
         <div
           v-else-if="block.__component === 'shared.blocco-di-contenuto'"
-          class="component-blocco-di-contenuto gsap-fade grid grid-cols-4 gap-[2px]"
+          class="component-blocco-di-contenuto gsap-fade grid grid-cols-4 gap-24"
         >
           <div class="lg:col-span-2 lg:col-start-2 col-span-4 space-y-8">
             <template v-for="(contenuto, j) in block.composer_contenuto" :key="j">
@@ -401,7 +401,7 @@
       </div>
       
       <div
-        class="gsap-fade grid grid-cols-4 gap-[2px]">
+        class="gsap-fade grid grid-cols-4 gap-24">
         <div class="lg:col-span-2 lg:col-start-2 col-span-4 space-y-2">
           <h3 class="h4">{{ project?.titolo_progetto }}</h3>
           <div v-if="renderedFoorerInfo" class="styled-content text-small opacity-80" v-html="renderedFoorerInfo" />
