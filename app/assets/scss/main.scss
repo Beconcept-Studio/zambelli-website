@@ -107,7 +107,7 @@ mark{
 
 //COMMON CONTAINERS
 html{
-  @apply overflow-x-clip font-helvetica overscroll-x-none antialiased bg-[#F9F9F9];
+  @apply overflow-x-clip font-martian text-[14px] font-extralight overscroll-x-none antialiased bg-white;
 }
 .page-enter-active,
 .page-leave-active {
@@ -172,7 +172,7 @@ section{
   @apply xl:pt-40 pt-20;
 }
 .verticalspaceproj > section:not(:first-child) , .verticalspaceproj > div:not(:first-child){
-  @apply xl:pt-[200px] pt-32;
+  @apply xl:pt-[105px] pt-20;
 }
 
 //GRIDS
@@ -183,28 +183,34 @@ section{
   @apply flex flex-col-reverse md:grid;
 }
 .h1 {
-  @apply font-helvetica font-bold lg:text-[80px] text-[64px] leading-[110%];
+  @apply font-inter font-bold lg:text-[80px] text-[64px] leading-[110%];
 }
 .h2 {
-  @apply font-helvetica font-bold lg:text-[64px] text-[48px] leading-[110%];
+  @apply font-inter font-bold lg:text-[64px] text-[48px] leading-[110%];
 }
 .h3 {
-  @apply font-helvetica font-bold lg:text-[56px] text-[40px] leading-[115%];
+  @apply font-inter font-bold lg:text-[56px] text-[40px] leading-[115%];
 }
 .h3small {
-  @apply font-helvetica font-bold lg:text-[48px] text-[32px] leading-[115%];
+  @apply font-inter font-bold lg:text-[40px] text-[32px] leading-[115%];
 }
 .h4 {
-  @apply font-helvetica font-semibold lg:text-[32px] text-[24px] leading-[130%];
+  @apply font-inter font-semibold lg:text-[32px] text-[24px] leading-[130%];
 }
 .h5 {
-  @apply font-helvetica font-semibold lg:text-[20px] text-[18px] leading-[150%];
+  @apply font-inter font-semibold lg:text-[20px] text-[18px] leading-[150%];
 }
 .h6 {
-  @apply font-helvetica font-semibold text-sm uppercase;
+  @apply font-inter font-semibold text-sm uppercase;
 }
 p + p , ul + p , p + ul, ol + p , p + ol{
   @apply pt-4;
+}
+
+.markdown-bold{
+  strong , b {
+    @apply bg-black font-normal text-white px-1;
+  }
 }
 
 .styled-markdown{
@@ -233,22 +239,27 @@ p + p , ul + p , p + ul, ol + p , p + ol{
   p + p , ul + p , p + ul, ol + p , p + ol{
     @apply pt-4;
   }
+  
 }
 
 .text-extra{
-  @apply font-semibold text-[28px] leading-[120%];
+  @apply font-inter font-semibold text-[28px] leading-[120%];
 }
 .text-big{
-  @apply font-semibold text-[20px] leading-[140%];
+  @apply font-inter font-semibold text-[20px] leading-[140%];
 }
 .text-large{
-  @apply font-medium text-[18px] leading-[140%];
+  @apply font-inter font-medium text-[18px] leading-[140%];
 }
 .text-basic{
-  @apply font-normal opacity-60 text-[16px] leading-[160%];
+  @apply font-light opacity-80 text-[14px] leading-[160%];
 }
 .text-small{
-  @apply font-normal opacity-60 text-[14px] leading-[160%];
+  @apply font-light opacity-80 text-[12px] leading-[160%];
+}
+
+.maxed-img img{
+  @apply lg:max-w-[70%] mx-auto
 }
 
 //BUTTONS
@@ -259,7 +270,7 @@ p + p , ul + p , p + ul, ol + p , p + ol{
   @apply flex flex-col gap-2;
 }
 .btn{
-  @apply font-normal w-fit transition-all px-2 py-1 duration-500 outline-none focus:outline-none flex items-center text-center h-fit justify-center cursor-pointer border border-solid gap-1;
+  @apply font-extralight w-fit transition-all px-2 py-1 duration-500 outline-none focus:outline-none flex items-center text-center h-fit justify-center cursor-pointer border border-solid gap-1;
   text-decoration: none !important;
   &.btn-fill-white{
     @apply border-glassgray/10 text-black bg-white hover:border-black;
@@ -269,7 +280,7 @@ p + p , ul + p , p + ul, ol + p , p + ol{
   }
 }
 .btn-icon{
-  @apply w-fit py-1 hover:opacity-40 font-medium border-b border-solid border-current duration-500 outline-none focus:outline-none flex items-center h-fit justify-center cursor-pointer gap-2;
+  @apply w-fit py-1 hover:opacity-40 font-medium font-inter text-[16px] border-b border-solid border-current duration-500 outline-none focus:outline-none flex items-center h-fit justify-center cursor-pointer gap-1;
   text-decoration: none !important;
   &.btn-outline-white{
     @apply text-white hover:opacity-60;

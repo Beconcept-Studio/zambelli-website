@@ -62,6 +62,14 @@ export default defineNuxtConfig({
   },
   
   modules: ['@nuxtjs/tailwindcss', '@nuxtjs/google-fonts' , 'nuxt-locomotive-scroll' , 'nuxt-swiper'],
+  googleFonts: {
+    families: {
+      Inter: [400, 500, 600, 700],
+      'Martian Mono': [200, 400],
+    },
+    display: 'swap', 
+    preload: true,
+  },
   css: ['~/assets/scss/main.scss'],
   vite: {
     css: {

@@ -163,7 +163,7 @@ const onProjClick = (event: MouseEvent, project: Project) => {
                   :alt="project.immagine_principale.alternativeText ?? project.titolo_progetto"
                 />
               </div>
-              <div class="text-center opacity-60 text-sm">{{ project.titolo_progetto }}</div>
+              <div class="text-center opacity-60 text-sm font-inter">{{ project.titolo_progetto }}</div>
             </div>
           </template>
         </div>
@@ -192,7 +192,7 @@ const onProjClick = (event: MouseEvent, project: Project) => {
                   :alt="project.immagine_principale.alternativeText ?? project.titolo_progetto"
                 />
               </div>
-              <div class="text-center opacity-60 text-sm">{{ project.titolo_progetto }}</div>
+              <div class="text-center opacity-60 text-sm font-inter">{{ project.titolo_progetto }}</div>
             </div>
           </template>
         </div>

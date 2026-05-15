@@ -115,7 +115,7 @@
 <template>
   <nav
     ref="headerEl"
-    class="flex items-center gap-2 relative w-fit font-normal text-black/60"
+    class="flex items-center gap-2 relative w-fit font-normal text-black/60 font-inter"
     @mouseleave="onMouseLeave"
   >
     <div

@@ -12,8 +12,8 @@
 <template>
     <section class="page-wrapper overflow-hidden h-[100dvh] overscroll-none zambelli-gallery-home flex items-center justify-center">
         <div class="intro-slogan relative font-medium">
-            <div class="-translate-y-1/2 w-full h-full text-black">Dove la materia incontra l'anima</div>
-            <div class="translate-y-1/2 absolute text-center inset-0 w-full text-sm h-full text-gray-400 uppercase">(Scroll to explore)</div>
+            <div class="-translate-y-1/2 w-full h-full text-black font-inter">Dove la materia incontra l'anima</div>
+            <div class="translate-y-1/2 absolute text-center inset-0 w-full font-inter text-sm h-full text-gray-400 uppercase">(Scroll to explore)</div>
         </div>
         <div class="medias">
             <img src="/effect-one/1.jpg" alt="">

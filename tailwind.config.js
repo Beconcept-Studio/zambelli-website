@@ -7,6 +7,8 @@ export default {
     extend: {
       fontFamily: {
         helvetica: ['HelveticaNow', 'sans-serif'],
+        inter: ['Inter', 'sans-serif'],
+        martian: ['Martian Mono', 'monospace'],
       },
       colors: {
         'glassgray' : '#A5A5A5',

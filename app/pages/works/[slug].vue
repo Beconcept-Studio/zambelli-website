@@ -53,6 +53,30 @@
     immagine_uno: Immagine
     immagine_due: Immagine
   }
+  
+  interface VideoComponent {
+    __component: 'shared.video'
+    id: number
+    attiva_sezione: boolean
+    fonte_video: 'youtube' | 'vimeo' | 'asset'
+    video_mp4: Immagine | null   // ← non string
+    video_webm: Immagine | null  // ← non string
+    video_cover: Immagine | null
+    didascalia: string | null
+    url_vimeo: string | null
+    url_youtube: string | null
+  }
+  function extractYoutubeId(url: string): string {
+    const match = url.match(
+      /(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/)|youtu\.be\/)([A-Za-z0-9_-]{11})/
+    )
+    return match?.[1] ?? url
+  }
+
+  function extractVimeoId(url: string): string {
+    const match = url.match(/vimeo\.com\/(?:video\/)?(\d+)/)
+    return match?.[1] ?? url
+  }
 
   interface MediaContent {
     __component: 'shared.immagine-testo'
@@ -61,6 +85,12 @@
     posizione_media: 'left' | 'right'
     immagine: Immagine
     testo: string
+    testo_bottone: string | null
+    link_bottone: string | null
+    icona_bottone: string | null
+    blank_bottone: boolean
+    shape_bottone: string | null
+    skin_bottone: string | null
   }
 
   interface ComposerContenuto {
@@ -87,7 +117,7 @@
     bottone_contenuto: BottoneContenuto[]
   }
 
-  type DynamicBlock = CitazioneCentrata | SingleMedia | MediaSide | BloccoContenuto | MediaContent
+  type DynamicBlock = CitazioneCentrata | SingleMedia | MediaSide | BloccoContenuto | MediaContent | VideoComponent
   
   interface CurrProject {
     id: number
@@ -98,8 +128,10 @@
     commissionario_progetto: string
     slug: string
     immagine_principale: Immagine
-    info_progetto: string
     dynamic_body_progetto: DynamicBlock[]  // ← aggiungi questo
+    info_progetto: string
+    testo_link_esterno: string
+    url_link_esterno: string
   }
   const slug = computed(() => route.params.slug as string)
   const { data: project } = await useFetch<CurrProject>(
@@ -124,18 +156,18 @@
           :alt="project.titolo_progetto"
           class="max-h-full max-w-full h-full w-auto"
         />
-        <div class="space-y-1 text-center">
-          <h1 v-if="project?.titolo_progetto" class="h4">{{ project?.titolo_progetto }}</h1>
-          <div class="flex gap-1 text-sm text-black/60">
-            <span v-if="project?.tipo_progetto" class="group flex gap-1">
+        <div class="space-y-3 text-center">
+          <h1 v-if="project?.titolo_progetto" class="h3small">{{ project?.titolo_progetto }}</h1>
+          <div class="flex gap-4 text-sm text-black/60">
+            <span v-if="project?.tipo_progetto" class="group flex gap-4">
               <span>{{project?.tipo_progetto}}</span>
               <span class="group-last:hidden">/</span>
             </span>  
-            <span v-if="project?.commissionario_progetto" class="group flex gap-1">
+            <span v-if="project?.commissionario_progetto" class="group flex gap-4">
               <span>{{project?.commissionario_progetto}}</span>
               <span class="group-last:hidden">/</span>
             </span>  
-            <span v-if="project?.anno_progetto" class="group flex gap-1">
+            <span v-if="project?.anno_progetto" class="group flex gap-4">
               <span>{{project?.anno_progetto}}</span>
               <span class="group-last:hidden">/</span>
             </span>  
@@ -145,28 +177,26 @@
     </div>
     <div ref="contentRef" class="div--container-proj verticalspaceproj space-bottom-double">
       <div v-for="(block, i) in project?.dynamic_body_progetto" :key="i">
-        
         <div
           v-if="block.__component === 'shared.citazione-centrata' && block.attiva_sezione"
           class="component-citazione-centrata gsap-fade grid grid-cols-4 gap-[2px]"
         >
           <div class="lg:col-span-2 lg:col-start-2 col-span-4 relative">
-            <div v-if="block.attiva_icone" class="absolute top-0 -left-14">
-              <OpenIcon class="w-8 h-8" />
+            <div v-if="block.attiva_icone" class="absolute top-0 -left-8">
+              <OpenIcon class="w-4" />
             </div>
             <div
-              class="text-black italic text-center custom-mark-content"
+              class="text-black custom-mark-content opacity-80"
               v-html="marked.parse(block.testo ?? '')"
             />
-            <div v-if="block.attiva_icone" class="absolute top-0 -right-14">
-              <CloseIcon class="w-8 h-8" />
+            <div v-if="block.attiva_icone" class="absolute top-0 -right-8">
+              <CloseIcon class="w-4" />
             </div>
           </div>
         </div>
-
         <div
           v-else-if="block.__component === 'shared.immagini-affiancate' && block.attiva_sezione"
-          class="component-immagini_affiancate gsap-fade grid grid-cols-4 gap-10"
+          class="component-immagini_affiancate gsap-fade grid grid-cols-4 gap-24"
         >
           <div
             :class="[
@@ -207,10 +237,9 @@
             <div v-if="block.didascalia_due" class="text-sm">{{ block.didascalia_due }}</div>
           </div>
         </div> 
-        
         <div
           v-else-if="block.__component === 'shared.media' && block.attiva_sezione"
-          class="component-immagine gsap-fade grid grid-cols-4 gap-[2px]"
+          class="component-immagine gsap-fade grid grid-cols-4 gap-24"
         >
           <div
             :class="[
@@ -220,6 +249,7 @@
                 : block.posizione_contenuto === 'left'   ? 'lg:col-span-2 col-span-4'
                 : block.posizione_contenuto === 'right'  ? 'lg:col-span-2 lg:col-start-3 col-span-4'
                 : block.posizione_contenuto === 'center'  ? 'lg:col-span-2 lg:col-start-2 col-span-4'
+                : block.posizione_contenuto === 'center-small'  ? 'lg:col-span-2 lg:col-start-2 col-span-4 space-top space-bottom maxed-img'
                 : 'col-span-4'
             ]"
           >
@@ -234,17 +264,68 @@
             <div v-if="block.didascalia" class="text-sm">{{ block.didascalia }}</div>
           </div>
         </div>
-       
+        <div
+          v-else-if="block.__component === 'shared.video' && block.attiva_sezione"
+          class="component-video gsap-fade grid grid-cols-4 gap-[2px]"
+        >
+          <div class="col-span-4 space-y-2">
+
+            <!-- Asset (mp4 / webm) -->
+            <video
+              v-if="block.fonte_video === 'asset'"
+              :poster="block.video_cover?.url ?? undefined"
+              controls
+              playsinline
+              class="w-full object-contain"
+            >
+              <source v-if="block.video_webm" :src="block.video_webm.url" type="video/webm" />
+              <source v-if="block.video_mp4"  :src="block.video_mp4.url"  type="video/mp4"  />
+            </video>
+
+            <!-- YouTube -->
+            <div
+              v-else-if="block.fonte_video === 'youtube' && block.url_youtube"
+              class="relative w-full aspect-video"
+            >
+              <iframe
+                :src="`https://www.youtube.com/embed/${extractYoutubeId(block.url_youtube)}`"
+                class="absolute inset-0 w-full h-full"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+              />
+            </div>
+
+            <!-- Vimeo -->
+            <div
+              v-else-if="block.fonte_video === 'vimeo' && block.url_vimeo"
+              class="relative w-full aspect-video"
+            >
+              <iframe
+                :src="`https://player.vimeo.com/video/${extractVimeoId(block.url_vimeo)}`"
+                class="absolute inset-0 w-full h-full"
+                frameborder="0"
+                allow="autoplay; fullscreen; picture-in-picture"
+                allowfullscreen
+              />
+            </div>
+
+            <!-- Didascalia -->
+            <div v-if="block.didascalia" class="text-sm">
+              {{ block.didascalia }}
+            </div>
+
+          </div>
+        </div>
         <div
           v-else-if="block.__component === 'shared.blocco-di-contenuto'"
           class="component-blocco-di-contenuto gsap-fade grid grid-cols-4 gap-[2px]"
         >
           <div class="lg:col-span-2 lg:col-start-2 col-span-4 space-y-8">
             <template v-for="(contenuto, j) in block.composer_contenuto" :key="j">
-              <div
+              <MarkdownRenderCustom
                 v-if="contenuto.attiva_sezione"
-                :class="contenuto.skin_contenuto"
-                v-html="marked.parse(contenuto.contenuto ?? '')"
+                :content="contenuto.contenuto ?? ''"
               />
             </template>
             <div v-if="block.bottone_contenuto?.length" class="btn-container">
@@ -267,10 +348,9 @@
             </div>
           </div>
         </div>
-
         <div
           v-else-if="block.__component === 'shared.immagine-testo' && block.attiva_sezione"
-          class="component-immagine-testo gsap-fade grid grid-cols-4 gap-10"
+          class="component-immagine-testo gsap-fade grid grid-cols-4 gap-24"
         >
           <div 
           :class="[
@@ -299,16 +379,43 @@
             
             <MarkdownRenderCustom v-if="block.testo" :content="block.testo"></MarkdownRenderCustom>
             
+            <div v-if="block.testo_bottone" class="btn-container">
+              <NuxtLink
+                :to="block.link_bottone ?? ''"
+                :target="block.blank_bottone ? '_blank' : '_self'"
+                :class="[
+                  block.shape_bottone === 'fill'    && block.skin_bottone === 'black'  ? 'btn btn-fill-black'
+                  : block.shape_bottone === 'fill'  && block.skin_bottone === 'white'  ? 'btn btn-fill-white'
+                  : block.shape_bottone === 'outline' && block.skin_bottone === 'black' ? 'btn-icon btn-outline-black'
+                  : block.shape_bottone === 'outline' && block.skin_bottone === 'white' ? 'btn-icon btn-outline-white'
+                  : 'btn btn-fill-black'
+                ]"
+              >
+                <span v-if="block.icona_bottone" style="--icon-fill: 0; --icon-weight: 300 ; --icon-font-size: 20px" class="material-symbols-outlined">{{ block.icona_bottone }}</span>
+                <span>{{ block.testo_bottone }}</span>
+              </NuxtLink>
+            </div>
+
           </div>
         </div>
       </div>
       
       <div
-        v-if="renderedFoorerInfo"
         class="gsap-fade grid grid-cols-4 gap-[2px]">
         <div class="lg:col-span-2 lg:col-start-2 col-span-4 space-y-2">
-          <h3 class="h5">{{ project?.titolo_progetto }}</h3>
-          <div class="styled-content" v-html="renderedFoorerInfo" />
+          <h3 class="h4">{{ project?.titolo_progetto }}</h3>
+          <div v-if="renderedFoorerInfo" class="styled-content text-small opacity-80" v-html="renderedFoorerInfo" />
+          
+          <div v-if="project?.testo_link_esterno" class="btn-container">
+            <NuxtLink
+              :to="project.url_link_esterno ?? ''"
+              target="_blank"
+              class="btn-icon btn-outline-black"
+            >
+              <span style="--icon-fill: 0; --icon-weight: 300; --icon-font-size: 20px" class="material-symbols-outlined">arrow_outward</span>
+              <span>{{ project.testo_link_esterno }}</span>
+            </NuxtLink>
+          </div>
         </div>
       </div>
     

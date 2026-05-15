@@ -35,5 +35,7 @@ export default defineEventHandler(async (event) => {
     info_progetto: a.info_progetto as string ?? null,
     immagine_principale: a.immagine_principale ?? null,
     dynamic_body_progetto: a.dynamic_body_progetto ?? [],
+    testo_link_esterno: a.testo_link_esterno ?? null,
+    url_link_esterno: a.url_link_esterno ?? null,
   }
 })

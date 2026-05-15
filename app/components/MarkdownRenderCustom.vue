@@ -1,5 +1,5 @@
 <template>
-  <div class="space-y-4" v-html="rendered" />
+  <div class="space-y-4 markdown-bold" v-html="rendered" />
 </template>
 
 <script setup>
