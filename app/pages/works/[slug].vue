@@ -149,7 +149,7 @@
 <template>
   <main class="page-wrapper min-h-[100dvh]">
     <div class="w-screen h-screen flex items-center div--container justify-center">
-      <div class="hero w-full flex-col gap-5 aspect-[2/.65] flex items-center justify-center">
+      <div class="hero w-full flex-col gap-5 lg:aspect-[2/.65] aspect-[1/1.25] flex items-center justify-center">
         <img
           v-if="project?.immagine_principale"
           :src="project.immagine_principale.url"
@@ -182,14 +182,14 @@
           class="component-citazione-centrata gsap-fade grid grid-cols-4 gap-24"
         >
           <div class="lg:col-span-2 lg:col-start-2 col-span-4 relative">
-            <div v-if="block.attiva_icone" class="absolute top-0 -left-8">
+            <div v-if="block.attiva_icone" class="absolute lg:top-0 -top-6 lg:-left-8 left-0">
               <OpenIcon class="w-4" />
             </div>
             <div
               class="text-black custom-mark-content opacity-80"
               v-html="marked.parse(block.testo ?? '')"
             />
-            <div v-if="block.attiva_icone" class="absolute top-0 -right-8">
+            <div v-if="block.attiva_icone" class="absolute lg:top-0 -bottom-6 lg:-right-8 right-0">
               <CloseIcon class="w-4" />
             </div>
           </div>
