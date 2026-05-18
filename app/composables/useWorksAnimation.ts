@@ -32,6 +32,13 @@ export function useWorksAnimation({ rootSelector, initialOffset }: UseWorksAnima
     // Attendi layout reale
     await new Promise<void>(r => requestAnimationFrame(() => requestAnimationFrame(() => r())))
 
+    root.style.touchAction = 'none'           // ← dice al browser "non gestire tu il touch"
+    root.style.userSelect  = 'none'           // ← evita selezione testo durante drag
+    root.style.webkitUserSelect = 'none'      // ← Safari
+
+    document.documentElement.style.overscrollBehavior = 'none'
+    document.body.style.overscrollBehavior            = 'none'
+
     const contentWidth  = content.clientWidth  + parseFloat(getComputedStyle(container).columnGap)
     const contentHeight = content.clientHeight + parseFloat(getComputedStyle(container).rowGap)
 
@@ -64,6 +71,7 @@ export function useWorksAnimation({ rootSelector, initialOffset }: UseWorksAnima
     observer = Observer.create({
       target: root,
       type: 'wheel,touch,pointer',
+      preventDefault: true,
 
       onPress: () => {
         dragDistance = 0
@@ -95,6 +103,12 @@ export function useWorksAnimation({ rootSelector, initialOffset }: UseWorksAnima
 
   onUnmounted(() => {
     observer?.kill()
+    if (root) {
+      root.style.touchAction = ''
+      root.style.userSelect  = ''
+    }
+    document.documentElement.style.overscrollBehavior = ''
+    document.body.style.overscrollBehavior            = ''
   })
 
   return {
