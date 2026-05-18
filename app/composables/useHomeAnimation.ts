@@ -63,9 +63,10 @@ export function useGalleryAnimation({
 
     const tl = gsap.timeline()
 
+    const isMobile = window.innerWidth < 768
     tl.fromTo(clone, {
-      xPercent: -50 + (Math.random() - 0.5) * 150,
-      yPercent: -50 + (Math.random() - 0.5) * 30,
+      xPercent: -50 + (Math.random() - 0.5) * (isMobile ? 75 : 150),
+      yPercent: -50 + (Math.random() - 0.5) * (isMobile ? 20 : 30),
       scaleX: 0.975,
       scaleY: 0.975,
     }, {

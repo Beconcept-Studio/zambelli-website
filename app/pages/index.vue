@@ -33,7 +33,7 @@ useGalleryAnimation({
 </script>
 
 <template>
-    <section class="page-wrapper overflow-hidden h-[100dvh] overscroll-none zambelli-gallery-home flex items-center justify-center">
+    <section class="page-wrapper overflow-hidden h-[100dvh] w-screen overscroll-none zambelli-gallery-home flex items-center justify-center">
         <div class="intro-slogan relative font-medium">
             <div class="-translate-y-1/2 w-full h-full text-black font-inter">
                 Dove la materia incontra l'anima

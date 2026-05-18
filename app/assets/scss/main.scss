@@ -334,11 +334,11 @@ p + p , ul + p , p + ul, ol + p , p + ol{
       height: 100%;
     }
 
-    &.size-one   { @apply w-[21vw] h-auto; }
-    &.size-two   { @apply w-[17vw] h-auto; }
-    &.size-three { @apply w-[14vw] h-auto; }
-    &.size-four  { @apply w-[18vw] h-auto; }
-    &.size-five  { @apply w-[18vw] h-auto; }
-    &.size-six   { @apply w-[15vw] h-auto; }
+    &.size-one   { @apply lg:w-[21vw] w-[41vw] h-auto; }
+    &.size-two   { @apply lg:w-[17vw] w-[37vw] h-auto; }
+    &.size-three { @apply lg:w-[14vw] w-[34vw] h-auto; }
+    &.size-four  { @apply lg:w-[18vw] w-[38vw] h-auto; }
+    &.size-five  { @apply lg:w-[18vw] w-[28vw] h-auto; }
+    &.size-six   { @apply lg:w-[15vw] w-[45vw] h-auto; }
   }
 }
