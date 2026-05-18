@@ -144,6 +144,9 @@ export function useGalleryAnimation({
     if (root && handleWheel)      root.removeEventListener('wheel', handleWheel)
     if (root && handleTouchStart) root.removeEventListener('touchstart', handleTouchStart)
     if (root && handleTouchMove)  root.removeEventListener('touchmove', handleTouchMove)
-    gsap.killTweensOf('*')
+
+    // Killa solo i tween degli elementi che abbiamo appendato
+    appendedImages.value.forEach(el => gsap.killTweensOf(el))
+    appendedImages.value = []
   })
 }
