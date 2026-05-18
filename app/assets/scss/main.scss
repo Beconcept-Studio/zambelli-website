@@ -192,7 +192,7 @@ section{
   @apply font-inter font-bold lg:text-[56px] text-[40px] leading-[115%];
 }
 .h3small {
-  @apply font-inter font-bold lg:text-[40px] text-[32px] leading-[115%];
+  @apply font-inter font-semibold lg:text-[40px] text-[32px] leading-[115%] tracking-[-1px];
 }
 .h4 {
   @apply font-inter font-semibold lg:text-[32px] text-[24px] leading-[130%];
@@ -306,42 +306,39 @@ p + p , ul + p , p + ul, ol + p , p + ol{
 }
 
 //HOMEPAGE
-.zambelli-gallery-home{
-  .medias{
-    img{
-      width: 1px;
-      height: 1px;
-      top: 0;
-      left: 0;
-      position: absolute;
-      visibility: hidden;
-      pointer-events: none;
+.zambelli-gallery-home {
+  .medias > div {
+    width: 1px;
+    height: 1px;
+    top: 0;
+    left: 0;
+    position: absolute;
+    visibility: hidden;
+    pointer-events: none;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
   }
-  & > img{
+
+  & > div.single-medias {
     position: absolute;
     top: 50%;
     left: 50%;
-    object-fit: cover;
-    // border-radius: 0.3vw;
 
-    &.size-one{
-      @apply w-[21vw] h-auto;
+    img {
+      object-fit: cover;
+      width: 100%;
+      height: 100%;
     }
-    &.size-two{
-      @apply w-[17vw] h-auto;
-    }
-    &.size-three{
-      @apply w-[14vw] h-auto;
-    }
-    &.size-four{
-      @apply w-[18vw] h-auto;
-    }
-    &.size-five{
-      @apply w-[18vw] h-auto;
-    }
-    &.size-six{
-      @apply w-[15vw] h-auto;
-    }
+
+    &.size-one   { @apply w-[21vw] h-auto; }
+    &.size-two   { @apply w-[17vw] h-auto; }
+    &.size-three { @apply w-[14vw] h-auto; }
+    &.size-four  { @apply w-[18vw] h-auto; }
+    &.size-five  { @apply w-[18vw] h-auto; }
+    &.size-six   { @apply w-[15vw] h-auto; }
   }
 }

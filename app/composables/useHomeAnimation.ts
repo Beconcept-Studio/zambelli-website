@@ -4,17 +4,19 @@ import gsap from 'gsap'
 interface UseGalleryAnimationOptions {
   rootSelector: string
   triggerDelta?: number
+  onNavigate?: (slug: string) => void
 }
 
 export function useGalleryAnimation({
   rootSelector,
-  triggerDelta = 400
+  triggerDelta = 400,
+  onNavigate,
 }: UseGalleryAnimationOptions) {
   const currentIndex = ref(0)
   let incr = 0
   let root: HTMLElement | null = null
-  let imagesAll: HTMLImageElement[] = []
-  const appendedImages = ref<HTMLImageElement[]>([])
+  let imagesAll: HTMLDivElement[] = []
+  const appendedImages = ref<HTMLDivElement[]>([])
 
   let handleWheel: (e: WheelEvent) => void
   let handleTouchStart: (e: TouchEvent) => void
@@ -39,45 +41,53 @@ export function useGalleryAnimation({
     const MAX_ELEMENTS = 12
     const realCount = Math.min(imagesAll.length, MAX_ELEMENTS)
 
-    const image = imagesAll[currentIndex.value].cloneNode(true) as HTMLImageElement
+    const clone = imagesAll[currentIndex.value].cloneNode(true) as HTMLDivElement
     const randomClass = classes[Math.floor(Math.random() * classes.length)]
-    image.classList.add(randomClass)
-    root.appendChild(image)
-    appendedImages.value.push(image)
+    clone.classList.add(randomClass , 'single-medias')
+    clone.style.visibility = 'visible'
+    clone.style.pointerEvents = 'auto'
+    clone.style.cursor = 'pointer'
+
+    // Naviga al click usando il data-slug del clone
+    if (onNavigate) {
+      clone.addEventListener('click', () => {
+        const slug = clone.dataset.slug
+        if (slug) onNavigate(slug)
+      })
+    }
+
+    root.appendChild(clone)
+    appendedImages.value.push(clone)
 
     currentIndex.value = (currentIndex.value + 1) % imagesAll.length
 
     const tl = gsap.timeline()
 
-    tl.fromTo(image, {
+    tl.fromTo(clone, {
       xPercent: -50 + (Math.random() - 0.5) * 150,
       yPercent: -50 + (Math.random() - 0.5) * 30,
-      //rotation: (Math.random() - 0.5) * 20,
       scaleX: 0.975,
       scaleY: 0.975,
-      //filter: 'blur(10px)',
     }, {
       scaleX: 1,
       scaleY: 1,
-      //filter: 'blur(0px)',
       ease: 'power4.out',
       duration: 0.25,
     })
 
     if (appendedImages.value.length > realCount) {
-      const oldImage = appendedImages.value.shift()!
-      tl.to(oldImage, {
+      const old = appendedImages.value.shift()!
+      tl.to(old, {
         scaleX: 0.96,
         scaleY: 0.96,
         ease: 'power4.in',
         duration: 0.5,
         delay: 1,
-        onComplete: () => root!.removeChild(oldImage),
+        onComplete: () => root!.removeChild(old),
       })
     }
   }
 
-  // Logica accumulatore condivisa tra wheel e touch
   function accumulate(delta: number) {
     incr += delta
 
@@ -107,23 +117,10 @@ export function useGalleryAnimation({
     root = document.querySelector(rootSelector)
     if (!root) return
 
-    const elements = root.querySelectorAll<HTMLImageElement>('.medias img')
+    const elements = root.querySelectorAll<HTMLDivElement>('.medias > div')
+    elements.forEach(el => imagesAll.push(el))
 
-    elements.forEach(img => {
-      const src = img.getAttribute('src')
-      if (!src) return
-
-      const preloaded = new Image()
-      preloaded.src = src
-      imagesAll.push(preloaded)
-
-      const randomClass = classes[Math.floor(Math.random() * classes.length)]
-      img.classList.add(randomClass)
-    })
-
-    handleWheel = (e: WheelEvent) => {
-      accumulate(Math.abs(e.deltaY))
-    }
+    handleWheel = (e: WheelEvent) => accumulate(Math.abs(e.deltaY))
 
     handleTouchStart = (e: TouchEvent) => {
       touchStartX = e.touches[0].clientX
@@ -133,10 +130,8 @@ export function useGalleryAnimation({
     handleTouchMove = (e: TouchEvent) => {
       const dx = Math.abs(e.touches[0].clientX - touchStartX)
       const dy = Math.abs(e.touches[0].clientY - touchStartY)
-
       touchStartX = e.touches[0].clientX
       touchStartY = e.touches[0].clientY
-
       accumulate(Math.max(dx, dy))
     }
 
