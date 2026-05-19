@@ -25,11 +25,17 @@ const [{ data: projects }, { data: worksPage }] = await Promise.all([
   useFetch<WorksPage>('/api/pages/work'),
 ])
 
-// const PADDING_OPTIONS = ['8px', '16px', '24px', '32px']
-const PADDING_OPTIONS = ['0px' , '24px', '48px']
+// const PADDING_OPTIONS = ['0px' , '24px', '48px']
+const PADDINGTOP_OPTIONS    = ['0vw', '1vw', '2vw', '3vw', '4vw', '5vw']
+const PADDINGBOTTOM_OPTIONS = ['0vw', '1vw', '2vw', '3vw', '4vw', '5vw']
+const PADDINGLEFT_OPTIONS   = ['0vw', '1vw', '2vw', '3vw', '4vw', '5vw']
+const PADDINGRIGHT_OPTIONS  = ['0vw', '1vw', '2vw', '3vw', '4vw', '5vw']
 
 const orderedProjects = ref<(Project | null)[]>([])
-const gridPaddings = ref<string[]>([])
+const gridPaddingTops = ref<string[]>([])
+const gridPaddingBottoms = ref<string[]>([])
+const gridPaddingLeft = ref<string[]>([])
+const gridPaddingRight = ref<string[]>([])
 const fw1Id = ref<number | null>(null)
 const fw2Id = ref<number | null>(null)
 
@@ -41,9 +47,9 @@ const buildGrid = () => {
   const fw1Raw = worksPage.value?.featured_work_one as any
   const fw2Raw = worksPage.value?.featured_work_two as any
 
-  console.log('worksPage.value completo:', JSON.stringify(worksPage.value, null, 2))
-  console.log('fw1Raw:', fw1Raw)
-  console.log('fw2Raw:', fw2Raw)
+  // console.log('worksPage.value completo:', JSON.stringify(worksPage.value, null, 2))
+  // console.log('fw1Raw:', fw1Raw)
+  // console.log('fw2Raw:', fw2Raw)
 
   const fw1: Project | null = fw1Raw?.id ? fw1Raw : (fw1Raw?.data ?? null)
   const fw2: Project | null = fw2Raw?.id ? fw2Raw : (fw2Raw?.data ?? null)
@@ -81,8 +87,17 @@ const buildGrid = () => {
 
   orderedProjects.value = grid
 
-  gridPaddings.value = grid.map(() =>
-    PADDING_OPTIONS[Math.floor(Math.random() * PADDING_OPTIONS.length)]
+  gridPaddingTops.value = grid.map(() =>
+    PADDINGTOP_OPTIONS[Math.floor(Math.random() * PADDINGTOP_OPTIONS.length)] ?? '0px'
+  )
+  gridPaddingBottoms.value = grid.map(() =>
+    PADDINGBOTTOM_OPTIONS[Math.floor(Math.random() * PADDINGBOTTOM_OPTIONS.length)] ?? '0px'
+  )
+  gridPaddingLeft.value = grid.map(() =>
+    PADDINGLEFT_OPTIONS[Math.floor(Math.random() * PADDINGLEFT_OPTIONS.length)] ?? '0px'
+  )
+  gridPaddingRight.value = grid.map(() =>
+    PADDINGRIGHT_OPTIONS[Math.floor(Math.random() * PADDINGRIGHT_OPTIONS.length)] ?? '0px'
   )
 }
 
@@ -152,7 +167,7 @@ const onProjClick = (event: MouseEvent, project: Project) => {
               :data-to="project.id"
               class="media lg:w-[25vw] w-[50vw] aspect-square select-none cursor-pointer space-y-2"
               :class="{ 'ring-2 ring-white/20': isFeatured(project) }"
-              :style="{ padding: gridPaddings[i], willChange: 'transform' }"
+              :style="{ paddingTop: gridPaddingTops[i], paddingBottom: gridPaddingBottoms[i], paddingRight: gridPaddingRight[i], paddingLeft: gridPaddingLeft[i], willChange: 'transform' }"
               @click="onProjClick($event, project)"
             >
               <div class="w-full h-full relative overflow-hidden flex items-center justify-center">
@@ -181,7 +196,7 @@ const onProjClick = (event: MouseEvent, project: Project) => {
               v-if="project"
               :data-to="project.id"
               class="media lg:w-[25vw] w-[50vw] aspect-square select-none cursor-pointer space-y-2"
-              :style="{ padding: gridPaddings[i], willChange: 'transform' }"
+              :style="{ paddingTop: gridPaddingTops[i], paddingBottom: gridPaddingBottoms[i], paddingRight: gridPaddingRight[i], paddingLeft: gridPaddingLeft[i], willChange: 'transform' }"
               @click="onProjClick($event, project)"
             >
               <div class="w-full h-full relative overflow-hidden flex items-center justify-center">
