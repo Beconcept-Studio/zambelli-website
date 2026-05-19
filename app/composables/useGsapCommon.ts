@@ -18,7 +18,7 @@ export function useGsapCommon() {
             opacity: 1,
             y: 0,
             filter: 'blur(0px)', 
-            duration: 3,
+            duration: 1,
             ease: 'power4.out',
             scrollTrigger: {
                 trigger: el,
