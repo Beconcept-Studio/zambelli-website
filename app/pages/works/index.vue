@@ -26,16 +26,20 @@ const [{ data: projects }, { data: worksPage }] = await Promise.all([
 ])
 
 // const PADDING_OPTIONS = ['0px' , '24px', '48px']
-const PADDINGTOP_OPTIONS    = ['0vw', '1vw', '2vw', '3vw', '4vw', '5vw']
-const PADDINGBOTTOM_OPTIONS = ['0vw', '1vw', '2vw', '3vw', '4vw', '5vw']
-const PADDINGLEFT_OPTIONS   = ['0vw', '1vw', '2vw', '3vw', '4vw', '5vw']
-const PADDINGRIGHT_OPTIONS  = ['0vw', '1vw', '2vw', '3vw', '4vw', '5vw']
+const PADDINGTOP_OPTIONS    = ['1vw', '2vw', '4vw', '6vw']
+const PADDINGBOTTOM_OPTIONS = ['2vw', '3vw', '5vw', '7vw']
+const PADDINGLEFT_OPTIONS   = ['0vw', '3vw', '5vw', '7vw']
+const PADDINGRIGHT_OPTIONS  = ['1vw', '4vw', '6vw', '8vw']
+const FLEXHOR_OPTIONS  = ['center', 'flex-start', 'flex-end']
+const FLEXVER_OPTIONS  = ['center', 'flex-start', 'flex-end']
 
 const orderedProjects = ref<(Project | null)[]>([])
 const gridPaddingTops = ref<string[]>([])
 const gridPaddingBottoms = ref<string[]>([])
 const gridPaddingLeft = ref<string[]>([])
 const gridPaddingRight = ref<string[]>([])
+const gridFlexHor = ref<string[]>([])
+const gridFlexVer = ref<string[]>([])
 const fw1Id = ref<number | null>(null)
 const fw2Id = ref<number | null>(null)
 
@@ -99,6 +103,12 @@ const buildGrid = () => {
   gridPaddingRight.value = grid.map(() =>
     PADDINGRIGHT_OPTIONS[Math.floor(Math.random() * PADDINGRIGHT_OPTIONS.length)] ?? '0px'
   )
+  gridFlexHor.value = grid.map(() =>
+    FLEXHOR_OPTIONS[Math.floor(Math.random() * FLEXHOR_OPTIONS.length)] ?? '0px'
+  )
+  gridFlexVer.value = grid.map(() =>
+    FLEXVER_OPTIONS[Math.floor(Math.random() * FLEXVER_OPTIONS.length)] ?? '0px'
+  )
 }
 
 if (process.client) {
@@ -155,9 +165,9 @@ const onProjClick = (event: MouseEvent, project: Project) => {
 <template>
   <section class="page-wrapper zambelli-gallery-works overflow-hidden h-[100dvh] overscroll-none">
     <ClientOnly>
-      <div class="container grid gap-[4vw] grid-cols-[repeat(2,1fr)] w-max will-change-transform">
+      <div class="container grid gap-[1vw] grid-cols-[repeat(2,1fr)] w-max will-change-transform">
 
-        <div class="content grid w-max lg:grid-cols-[repeat(4,1fr)] grid-cols-[repeat(2,1fr)] gap-[4vw]">
+        <div class="content grid w-max lg:grid-cols-[repeat(4,1fr)] grid-cols-[repeat(2,1fr)] gap-[1vw]">
           <template
             v-for="(project, i) in orderedProjects"
             :key="project ? project.id : `empty-${i}`"
@@ -170,7 +180,10 @@ const onProjClick = (event: MouseEvent, project: Project) => {
               :style="{ paddingTop: gridPaddingTops[i], paddingBottom: gridPaddingBottoms[i], paddingRight: gridPaddingRight[i], paddingLeft: gridPaddingLeft[i], willChange: 'transform' }"
               @click="onProjClick($event, project)"
             >
-              <div class="w-full h-full relative overflow-hidden flex items-center justify-center">
+              <div 
+              class="w-full h-full relative overflow-hidden flex items-center justify-center"
+              :style="{ alignItems: gridFlexVer[i], justifyContent: gridFlexHor[i] }"
+              >
                 <img
                   v-if="project.immagine_principale"
                   class="max-h-full max-w-full transition-opacity duration-500"
@@ -178,7 +191,7 @@ const onProjClick = (event: MouseEvent, project: Project) => {
                   :alt="project.immagine_principale.alternativeText ?? project.titolo_progetto"
                 />
               </div>
-              <div class="text-center opacity-60 text-sm font-inter">{{ project.titolo_progetto }}</div>
+              <!-- <div class="text-center opacity-60 text-sm font-inter">{{ project.titolo_progetto }}</div> -->
             </div>
           </template>
         </div>
@@ -186,7 +199,7 @@ const onProjClick = (event: MouseEvent, project: Project) => {
         <div
           v-for="n in 3"
           :key="n"
-          class="content grid w-max lg:grid-cols-[repeat(4,1fr)] grid-cols-[repeat(2,1fr)] gap-[4vw]"
+          class="content grid w-max lg:grid-cols-[repeat(4,1fr)] grid-cols-[repeat(2,1fr)] gap-[1vw]"
         >
           <template
             v-for="(project, i) in orderedProjects"
@@ -199,7 +212,10 @@ const onProjClick = (event: MouseEvent, project: Project) => {
               :style="{ paddingTop: gridPaddingTops[i], paddingBottom: gridPaddingBottoms[i], paddingRight: gridPaddingRight[i], paddingLeft: gridPaddingLeft[i], willChange: 'transform' }"
               @click="onProjClick($event, project)"
             >
-              <div class="w-full h-full relative overflow-hidden flex items-center justify-center">
+              <div 
+                class="w-full h-full relative overflow-hidden flex items-center justify-center"
+                :style="{ alignItems: gridFlexVer[i], justifyContent: gridFlexHor[i] }"
+              >
                 <img
                   v-if="project.immagine_principale"
                   class="max-h-full max-w-full transition-opacity duration-500"
@@ -207,7 +223,7 @@ const onProjClick = (event: MouseEvent, project: Project) => {
                   :alt="project.immagine_principale.alternativeText ?? project.titolo_progetto"
                 />
               </div>
-              <div class="text-center opacity-60 text-sm font-inter">{{ project.titolo_progetto }}</div>
+              <!-- <div class="text-center opacity-60 text-sm font-inter">{{ project.titolo_progetto }}</div> -->
             </div>
           </template>
         </div>
